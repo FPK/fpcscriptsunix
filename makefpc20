@@ -1,0 +1,1 @@
+make FPC=~/fpc/fixes/compiler/ppc386 $@

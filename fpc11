@@ -1,0 +1,2 @@
+#!/bin/bash
+~/fpc/compiler/ppc386 -n -Fu/home/florian/fpc/rtl/units/i386-linux $@
