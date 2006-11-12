@@ -1,1 +1,1 @@
-make FPC=~/fpc/compiler/ppc386 $@
+make FPC=~/fpc/compiler/ppc386 OPT=@/home/florian/bin/fpc.cfg "$@"
