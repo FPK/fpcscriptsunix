@@ -1,0 +1,3 @@
+svn co http://svn.freepascal.org/svn/fpc/trunk fpc
+cd fpc
+svn co http://svn.freepascal.org/svn/fpc/fixes2_0 fixes
