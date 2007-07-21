@@ -1,2 +1,2 @@
 #!/bin/bash
-~/fpc/compiler/ppcarm @~/bin/fpc.cfg "-XP\$FPCTARGET-" $@
+~/fpc/compiler/ppcarm @~/bin/fpc.cfg $@
