@@ -1,0 +1,2 @@
+#!/bin/bash
+~/fpc/fixes/compiler/ppcx64 -n @$HOME/bin/fpcfixes.cfg $@
