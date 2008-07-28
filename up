@@ -6,4 +6,3 @@ svn up fixes/fpcbuild
 svn up docs
 svn up html
 svn up lazarus
-svn up projects
