@@ -1,0 +1,4 @@
+#!/bin/bash
+cp output/arm-linux/log log.$1
+cp output/arm-linux/longlog longlog.$1
+cp output/arm-linux/faillist faillist.$1
