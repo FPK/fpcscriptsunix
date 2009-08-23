@@ -1,0 +1,4 @@
+#!/bin/bash
+CURRENT_PATH=`pwd`
+make clean all digest TEST_FPC="$CURRENT_PATH/../compiler/ppc386" V=1 TEST_OPT=-O2
+ 
