@@ -1,2 +1,2 @@
 #!/bin/bash
-~/fpc/fixes/compiler/ppcarm @~/bin/fpc.cfg "$@"
+~/fpc/fixes/compiler/ppcarm @~/bin/fpcfixes.cfg "$@"
