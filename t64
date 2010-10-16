@@ -1,4 +1,3 @@
 #!/bin/bash
-cd ~/fpc/tests
-make clean all digest TEST_FPC=~/fpc/compiler/ppcx64 V=1 TEST_OPT=-O2
- 
+CURRENT_PATH=`pwd`
+make clean all digest TEST_FPC="$CURRENT_PATH/../compiler/ppcx64" V=1 TEST_OPT=-O2
