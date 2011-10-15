@@ -1,2 +1,2 @@
 #!/bin/bash
-~/fpc/compiler/i386/pp -n @/home/florian/bin/fpc.cfg $@
+~/fpc/$MYFPC./compiler/i386/pp -n @/home/florian/bin/fpc.cfg $@

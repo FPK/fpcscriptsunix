@@ -1,0 +1,1 @@
+make FPC=~/fpc/$MYFPC./compiler/sparc/pp OPT=@~/bin/fpc.cfg "$@"

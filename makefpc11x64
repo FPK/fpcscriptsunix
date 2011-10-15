@@ -1,1 +1,1 @@
-make FPC=~/fpc/compiler/ppcx64 OPT=@$HOME/bin/fpc.cfg "$@"
+make FPC=~/fpc/"$MYFPC"compiler/ppcx64 OPT=@$HOME/bin/fpc.cfg "$@"

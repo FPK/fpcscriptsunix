@@ -1,2 +1,2 @@
 #!/bin/bash
-~/fpc/compiler/ppc386 -n @$HOME/bin/fpc.cfg $@
+~/fpc/"$MYFPC"compiler/ppc386 -n @$HOME/bin/fpc.cfg $@
