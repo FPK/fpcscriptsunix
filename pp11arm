@@ -1,0 +1,2 @@
+#!/bin/bash
+~/fpc/$MYFPC./compiler/arm/pp @~/bin/fpc.cfg $@
