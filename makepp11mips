@@ -1,0 +1,1 @@
+make FPC=~/fpc/$MYFPC./compiler/mips/pp OPT=@/home/florian/bin/fpc.cfg "$@"

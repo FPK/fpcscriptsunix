@@ -1,0 +1,2 @@
+#!/bin/bash
+~/fpc/$MYFPC./compiler/mips/pp @~/bin/fpc.cfg $@

@@ -1,1 +1,1 @@
-~/fpc/utils/fpcm/fpcmake $@
+~/fpc/$MYFPC./utils/fpcm/fpcmake $@
