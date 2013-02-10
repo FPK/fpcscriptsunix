@@ -1,2 +1,2 @@
 #!/bin/bash
-~/fpc/compiler/ppcx64 -n @$HOME/bin/fpc.cfg $@
+~/fpc/"$MYFPC"compiler/ppcx64 -n @$HOME/bin/fpc.cfg $@
