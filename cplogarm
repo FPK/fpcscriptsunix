@@ -2,3 +2,5 @@
 cp output/arm-linux/log log.$1
 cp output/arm-linux/longlog longlog.$1
 cp output/arm-linux/faillist faillist.$1
+old=$(expr $1 - 1)
+diff faillist.$old faillist.$1
