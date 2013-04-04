@@ -2,3 +2,5 @@
 cp output/x86_64-linux/log log.$1
 cp output/x86_64-linux/longlog longlog.$1
 cp output/x86_64-linux/faillist faillist.$1
+old=$(expr $1 - 1)
+diff faillist.$old faillist.$1
