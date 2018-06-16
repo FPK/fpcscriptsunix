@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+set -e
+BINDIR=$( dirname "${BASH_SOURCE[0]}" )
+FPCDIR=$PWD
+{
+	$BINDIR/b
+	cd tests
+	time $BINDIR/t64
+} 2>&1 | tee -a $FPCDIR/bt64.log
+storelog64
