@@ -6,5 +6,5 @@ FPCDIR=$PWD
 	$BINDIR/b
 	cd tests
 	time $BINDIR/t64
+        storelog64
 } 2>&1 | tee -a $FPCDIR/bt64.log
-storelog64

@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+make distclean NOWPOCYCLE=1 "$@" -j
+make all NOWPOCYCLE=1 "$@" -j OPTNEW="$MYOPTX64"
