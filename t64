@@ -1,4 +1,4 @@
 #!/bin/bash
 CURRENT_PATH=`pwd`
 make clean TEST_FPC="$CURRENT_PATH/../compiler/ppcx64" V=1 TEST_OPT=-O2
-make full TEST_FPC="$CURRENT_PATH/../compiler/ppcx64" V=1 TEST_OPT=-O2 -j
+make full TEST_DELTEMP=1 TEST_FPC="$CURRENT_PATH/../compiler/ppcx64" V=1 TEST_OPT=-O2 -j

@@ -1,6 +1,7 @@
 #!/bin/bash
-cp output/i386-linux/log log.$1
-cp output/i386-linux/longlog longlog.$1
-cp output/i386-linux/faillist faillist.$1
+FULLTARGET=i386-linux
+cp output/$FULLTARGET/log log.$FULLTARGET.$1
+cp output/$FULLTARGET/longlog longlog.$FULLTARGET.$1
+cp output/$FULLTARGET/faillist faillist.$FULLTARGET.$1
 old=$(expr $1 - 1)
-diff faillist.$old faillist.$1
+diff faillist.$FULLTARGET.$old faillist.$FULLTARGET.$1
