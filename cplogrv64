@@ -1,0 +1,6 @@
+#!/bin/bash
+cp output/riscv64-linux/log log.rv64.$1
+cp output/riscv64-linux/longlog longlog.rv64.$1
+cp output/riscv64-linux/faillist faillist.rv64.$1
+old=$(expr $1 - 1)
+diff faillist.rv64.$old faillist.rv64.$1

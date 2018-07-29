@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
-rm -f build-stamp.riscv64-linux
-time make all CPU_TARGET=riscv64 OS_TARGET=linux CROSSOPT="$MYOPTRV64" OVERRIDEVERSIONCHECK=1 "$@" -j
+make distclean 
+make distclean
+time make all FPC=fpc CPU_TARGET=riscv64 OS_TARGET=linux CROSSOPT="$MYOPTRV64" OVERRIDEVERSIONCHECK=1 "$@" -j
