@@ -3,4 +3,4 @@ set -e
 CURRENT_PATH=`pwd`
 export LD_PRELOAD= 
 export QEMU_LD_PREFIX=/usr/riscv64-linux-gnu
-time make full TEST_DELTEMP=1 FPCDIR=$CURRENT_PATH/.. FPC=fpc TEST_FPC=$CURRENT_PATH/../compiler/ppcrossrv64 TEST_CPU_TARGET=riscv64 TEST_OS_TARGET=linux V=1 TEST_OPT="$MYTEST_OPTRV64 -XPriscv64-linux- -Fl/usr/riscv64-linux-gnu/lib/ -FL/lib/ld-linux-riscv64-lp64d.so.1" EMULATOR=qemu-riscv64 $@ -j 12
+time make full TEST_DELTEMP=1 FPCDIR=$CURRENT_PATH/.. FPC=fpc TEST_FPC=$CURRENT_PATH/../compiler/ppcrossrv64 TEST_CPU_TARGET=riscv64 TEST_OS_TARGET=linux V=1 TEST_OPT="$MYTEST_OPTRV64 -XPriscv64-linux- -Fl/usr/riscv64-linux-gnu/lib/ -FL/lib/ld-linux-riscv64-lp64d.so.1" EMULATOR=qemu-riscv64 $@ -j 6
