@@ -1,0 +1,10 @@
+#!/bin/bash
+set -e
+BRANCH=$(date '+%Y%m%d%H%M%S');
+echo Going to commit $BRANCH
+git branch $BRANCH
+git checkout $BRANCH
+git commit -a $@
+git push origin $BRANCH
+echo Press key to continue && read -n1 -s
+remote_dcommit $BRANCH

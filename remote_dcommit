@@ -1,0 +1,15 @@
+#!/bin/bash
+set -e
+cmd1="cd $DCOMMIT_REMOTE_GITDIR && git rebase"
+cmdall="$cmd1 $1"
+ssh $DCOMMIT_REMOTE "$cmdall"
+ssh $DCOMMIT_REMOTE "cd $DCOMMIT_REMOTE_GITDIR && git svn rebase && git svn dcommit -n"
+ssh $DCOMMIT_REMOTE "cd $DCOMMIT_REMOTE_GITDIR && git log -n 8 && echo Press key to continue && read -n1 -s"
+ssh $DCOMMIT_REMOTE "cd $DCOMMIT_REMOTE_GITDIR && git svn dcommit"
+cd $MYFPCDIR/$MYFPC
+ssh $DCOMMIT_REMOTE "cd $DCOMMIT_REMOTE_GITDIR && git svn rebase"
+git fetch -a
+git checkout -B master remotes/origin/master --
+git push origin --delete $1
+git branch -D $1
+git log HEAD -n 3

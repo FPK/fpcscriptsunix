@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+make clean all OS_TARGET=msdos CPU_TARGET=i8086 OPT="-CX -XXs" CROSSOPT=-WmLarge
