@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+set -e
+if [ -z "$1" ]
+then
+  echo Missing target
+  exit 1
+else
+  FULLTARGET=$1
+fi
+
+a=1
+while [ -f log.$FULLTARGET.$a ] ;
+do
+  a=$(expr $a + 1)
+done
+echo Copying to $a
+cplogx $a $FULLTARGET

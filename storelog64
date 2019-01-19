@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 a=1
-while [ -f log.$a ] ;
+while [ -f log.x86_64-linux.$a ] ;
 do
   a=$(expr $a + 1)
 done

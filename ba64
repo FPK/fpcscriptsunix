@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+make distclean 
+make distclean
+time make all FPC=fpc CPU_TARGET=aarch64 OS_TARGET=linux CROSSOPT="$MYOPTA64" OVERRIDEVERSIONCHECK=1 "$@" -j

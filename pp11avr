@@ -1,0 +1,1 @@
+$MYFPCDIR/$MYFPC/compiler/avr/pp -n @~/bin/fpc.cfg -XP"\$FPCTARGET-" "$@"

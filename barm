@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+make distclean 
+make distclean
+time make all FPC=fpc CPU_TARGET=arm OS_TARGET=linux CROSSOPT="$MYOPTARM" OVERRIDEVERSIONCHECK=1 "$@" -j

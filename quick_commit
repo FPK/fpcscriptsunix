@@ -12,5 +12,3 @@ else
   git commit $@
 fi
 git push origin $BRANCH
-echo Press key to continue && read -n1 -s
-remote_dcommit $BRANCH

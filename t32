@@ -3,5 +3,5 @@ set -e
 CURRENT_PATH=`pwd`
 MAKEPARAMS=TEST_FPC="$CURRENT_PATH/../compiler/ppc386" V=1
 make clean $MAKEPARAMS -j
-make all $MAKEPARAMS TEST_OPT="-O4 -Aas" -j 5
+make all $MAKEPARAMS TEST_OPT="$MYTEST_OPT386" -j 5
 make digest $MAKEPARAMS
