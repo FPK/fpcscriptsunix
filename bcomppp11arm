@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+cd $MYFPCDIR/$MYFPC/compiler
+mkdir -p output.$1
+make clean compiler OPT="$MYOPTARM -al" FPC=$MYFPCDIR/$MYFPC./compiler/arm/pp
+cp -a arm/units/arm-linux/*.s output.$1
