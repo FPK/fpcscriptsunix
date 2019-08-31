@@ -3,7 +3,7 @@ set -e
 BINDIR=$( dirname "${BASH_SOURCE[0]}" )
 FPCDIR=$PWD
 {
-    $BINDIR/b
+    $BINDIR/b64
     cd tests
     time $BINDIR/t64
     storelogx x86_64-linux

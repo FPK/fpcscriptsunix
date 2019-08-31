@@ -1,0 +1,1 @@
+make FPC=~/fpc/compiler/ppc68k OPT=@/home/florian/bin/fpc.cfg "$@"

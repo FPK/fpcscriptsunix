@@ -1,0 +1,1 @@
+make FPC=~/fpc/$MYFPC./compiler/i8086/pp OPT=@/home/florian/bin/fpc.cfg "$@"

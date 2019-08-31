@@ -1,0 +1,5 @@
+#!/bin/bash
+set -e
+BRANCH=$(date '+%Y%m%d%H%M%S');
+git branch $BRANCH
+git checkout $BRANCH

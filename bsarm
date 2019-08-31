@@ -1,0 +1,15 @@
+#!/bin/bash
+set -e
+
+if [ -z "$1" ]
+then
+  echo Missing suffix
+else
+  cd ~/fpc/$MYFPC
+  mkdir output.$1
+  make distclean OVERRIDEVERSIONCHECK=1 "CROSSOPT=$MYOPTARM -al" -j
+  make all OVERRIDEVERSIONCHECK=1 "CROSSOPT=$MYOPTARM -al" "OPT=$MYOPT" -j NOWPOCYCLE=1 CPU_TARGET=arm
+  find rtl/units -name \*.s -exec cp {} output.$1 \;
+  find compiler -name \*.s -exec cp {} output.$1 \;
+  find packages -name \*.s -exec cp {} output.$1 \;
+fi

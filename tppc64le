@@ -1,0 +1,6 @@
+#!/bin/bash
+set -e
+CURRENT_PATH=`pwd`
+export LD_PRELOAD= 
+export QEMU_LD_PREFIX=/usr/powerpc64le-linux-gnu
+time make full TEST_DELTEMP=1 FPCDIR=$CURRENT_PATH/.. FPC=fpc TEST_FPC=$CURRENT_PATH/../compiler/ppcrossppc64 TEST_CPU_TARGET=powerpc64 TEST_OS_TARGET=linux V=1 TEST_OPT="-XPpowerpc64-linux- $MYTEST_OPTPPC64LE -Foobj/linux/powerpc64-le -Fl/usr/powerpc64le-linux-gnu/lib/ -FL/lib/ld64.so.2" EMULATOR=qemu-ppc64le $@ -j 10 TEST_VERBOSE=1
