@@ -1,10 +1,13 @@
-if "%~1"== "" (
-echo Missing suffix
-) else (
-cd $MYFPCDIR/$MYFPC%rtl/linux
-make distclean FPC=c:\fpc\%MYFPC%compiler\i386\pp PP=c:\fpc\compiler\i386\pp "OPT=@c:\fpc\bin\fpc.cfg -al %MYOPT386%"
-make all FPC=c:\fpc\%MYFPC%compiler\i386\pp PP=c:\fpc\%MYFPC%compiler\i386\pp "OPT=@c:\fpc\bin\fpc.cfg -vi -al %MYOPT386%" -j
-cd ..
-rm -rf units.%1
-cp -a units units.%1
-)
+#!/usr/bin/env bash
+set -e
+if [ -z "$1" ]
+then
+  echo Missing suffix
+else
+  cd $MYFPCDIR/$MYFPC/rtl/linux
+  make distclean FPC=$MYFPCDIR/$MYFPC/compiler/i386/pp PP=fpc "OPT=@~/bin/fpc.cfg -al $MYOPT386"
+  make all FPC=$MYFPCDIR/$MYFPC/compiler/i386/pp PP=fpc "OPT=@~/bin/fpc.cfg -vi -al $MYOPT386" -j
+  cd ..
+  rm -rf units.$1
+  cp -a units units.$1
+fi

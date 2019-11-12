@@ -1,0 +1,15 @@
+#!/bin/bash
+set -e
+make distclean || true
+if [ -z "$2" ]
+then
+#  ./configure --target=$1 --disable-gdb --disable-sim --disable-readline --disable-libdecnumber
+  ./configure --target=$1
+else
+  ./configure --target=$1 --program-prefix=$2 --disable-gdb --disable-sim --disable-readline --disable-libdecnumber
+#  ./configure --target=$1 --program-prefix=$2
+fi
+
+make -j `nproc`
+sudo make install
+make distclean

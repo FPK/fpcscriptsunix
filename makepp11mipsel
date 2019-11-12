@@ -1,0 +1,1 @@
+make FPC=~/fpc/$MYFPC./compiler/mipsel/pp OPT=@~/bin/fpc.cfg "$@"

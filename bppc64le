@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+make distclean 
+make distclean
+time make all FPC=fpc CPU_TARGET=powerpc64 OS_TARGET=linux OPT=-dppc64le CROSSOPT="$MYOPTPPC64LE" OVERRIDEVERSIONCHECK=1 "$@" -j

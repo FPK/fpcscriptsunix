@@ -1,0 +1,7 @@
+#!/bin/bash
+set -e
+bbinutils arm-linux
+bbinutils arm-elf arm-embedded-
+bbinutils powerpc-linux
+bbinutils sparc-linux
+bbinutils sparc64-linux

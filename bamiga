@@ -1,0 +1,3 @@
+rm build-stamp.m68k-amiga
+time make all OVERRIDEVERSIONCHECK=1 "$@" -j "CROSSOPT=-XV -Avasm -XP" "OS_TARGET=amiga" "CPU_TARGET=m68k"
+

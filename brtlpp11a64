@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+set -e
+if [ -z "$1" ]
+then
+  echo Missing suffix
+else
+  cd $MYFPCDIR/$MYFPC/rtl/linux
+  make distclean FPC=$MYFPCDIR/$MYFPC/compiler/aarch64/pp PP=fpc "OPT=@~/bin/fpc.cfg -al $MYOPTA64"
+  make all FPC=$MYFPCDIR/$MYFPC/compiler/aarch64/pp PP=fpc "OPT=@~/bin/fpc.cfg -vi -al $MYOPTA64" -j
+  cd ..
+  rm -rf units.$1
+  cp -a units units.$1
+fi

@@ -1,0 +1,2 @@
+rm build-stamp.jvm-java
+time make all OVERRIDEVERSIONCHECK=1 $* -j "OPTNEW=$MYOPTJVM" "OS_TARGET=java" "CPU_TARGET=jvm"
