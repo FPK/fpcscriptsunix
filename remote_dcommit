@@ -1,19 +1,15 @@
 #!/bin/bash
 set -e
-cmd1="cd $DCOMMIT_REMOTE_GITDIR && git rebase"
 SSH_OPT=
 if [ -z "$1" ]
 then
   curr_branch=`git rev-parse --abbrev-ref HEAD`
 else
   curr_branch=$1
-  cmdall="$cmd1 $1"
 fi
-  cmdall="$cmd1 $curr_branch"
-ssh $SSH_OPT $DCOMMIT_REMOTE "$cmdall"
-ssh $SSH_OPT $DCOMMIT_REMOTE "cd $DCOMMIT_REMOTE_GITDIR && git svn rebase && git svn dcommit -n && git log -n 5 && echo Press key to continue && read -n1 -s && git svn dcommit"
+
+ssh $SSH_OPT $DCOMMIT_REMOTE "cd $DCOMMIT_REMOTE_GITDIR && git rebase $curr_branch && git svn rebase && git svn dcommit -n && git log -n 5 && echo Press key to continue && read -n1 -s && git svn dcommit && git svn rebase"
 cd $MYFPCDIR/$MYFPC
-ssh $SSH_OPT $DCOMMIT_REMOTE "cd $DCOMMIT_REMOTE_GITDIR && git svn rebase"
 git fetch -a
 git checkout -B master remotes/origin/master --
 git push origin --delete $curr_branch

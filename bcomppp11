@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+cd $MYFPCDIR/$MYFPC/compiler
+mkdir -p output.$1
+hostos=`$MYFPCDIR/$MYFPC./compiler/i386/pp -iSO`
+hostcpu=`$MYFPCDIR/$MYFPC./compiler/i386/pp -iSP`
+make clean compiler OPT="$MYOPT386 -al" FPC=$MYFPCDIR/$MYFPC./compiler/i386/pp
+cp -a i386/units/$hostcpu-$hostos/*.s output.$1

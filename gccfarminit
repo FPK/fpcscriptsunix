@@ -1,0 +1,25 @@
+#!/bin/bash
+set -e
+if [ -z "$1" ]
+then
+  echo Server expected
+else
+  server=$GCCFARMACCOUNT@$1.fsffrance.org
+  remote=$1.fsffrance.org 
+  cd $MYFPCDIR/$MYFPC
+  gitmail=`git config --global user.email`
+  gitname=`git config --global user.name`
+  echo Initializing $server
+  ssh $server "mkdir -p ~/$GCCFARMDIR && cd ~/$GCCFARMDIR && git init fpctrunk && git config --global user.email $gitmail && git config --global user.name $gitname && cd fpctrunk && touch fpcfpc && git add . && git commit -m 0 && git config --local receive.denyCurrentBranch updateInstead"
+  remote_home=`ssh $server pwd`
+  echo Using remote home $remote_home
+  echo Adding/Updating remote $remote
+  git remote remove $remote || true
+  git remote add $remote ssh://$server/$remote_home/$GCCFARMDIR/fpctrunk
+  echo Pushing to $remote
+  git push -u $remote master
+  echo Creating fpcgit
+  ssh $server "echo export MYFPC=$GCCFARMMYFPC > fpcgit && echo cd \~/fpc/\\\$MYFPC >> fpcgit "
+  echo Copying env_linux
+  scp $HOME/Share/MyData/bin/env_linux "$server:\$HOME/bin"
+fi

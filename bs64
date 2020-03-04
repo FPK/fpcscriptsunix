@@ -8,8 +8,9 @@ else
   cd ~/fpc/$MYFPC
   mkdir output.$1
   make distclean OVERRIDEVERSIONCHECK=1 "OPTNEW=$MYOPTX64 -al" -j
-  make all OVERRIDEVERSIONCHECK=1 "OPTNEW=$MYOPT386 -al" -j NOWPOCYCLE=1
-  find rtl/units -name \*.s -exec cp {} output.$1 \;
+  # add || true so we copy always
+  make all OVERRIDEVERSIONCHECK=1 "OPTNEW=$MYOPTX64 -al" -j NOWPOCYCLE=1 || true
+  find rtl/units -name \*.s -exec cp {} output.$1 \; 
   find compiler -name \*.s -exec cp {} output.$1 \;
   find packages -name \*.s -exec cp {} output.$1 \;
 fi

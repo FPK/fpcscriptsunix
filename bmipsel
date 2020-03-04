@@ -16,10 +16,11 @@ fi
 
 
 case "$RUNMODE" in
-   native) time make all FPC=fpc CPU_TARGET=mipsel OS_TARGET=linux OPT="$MYOPTPPC" OVERRIDEVERSIONCHECK=1 "$@" -j ;;
-   cross)  time make all FPC=fpc NOWPOCYCLE=1 CPU_TARGET=mipsel OS_TARGET=linux BINUTILSPREFIX=mipsel-linux- CROSSOPT="$MYOPTMIPSEL -Xr/usr/mipsel-linux-gnu -XR/usr/mipsel-linux-gnu" OVERRIDEVERSIONCHECK=1 "$@" -j ;;
+   native) time make all FPC=fpc CPU_TARGET=mipsel OS_TARGET=linux OPT="$MYOPTMIPSEL" OVERRIDEVERSIONCHECK=1 "$@" -j ;;
+#   cross)  time make all FPC=fpc NOWPOCYCLE=1 CPU_TARGET=mipsel OS_TARGET=linux BINUTILSPREFIX=mipsel-linux- CROSSOPT="$MYOPTMIPSEL -Xr/usr/mipsel-linux-gnu -XR/usr/mipsel-linux-gnu" OVERRIDEVERSIONCHECK=1 "$@" -j ;;
+   cross)  time make all FPC=fpc NOWPOCYCLE=1 CPU_TARGET=mipsel OS_TARGET=linux BINUTILSPREFIX=mipsel-linux- CROSSOPT="$MYOPTMIPSEL -Xr/usr/mipsel-linux-gnu" OVERRIDEVERSIONCHECK=1 "$@" -j ;;
    qemu)   OLD_LD_PREFIX=$QEMU_LD_PREFIX
            export QEMU_LD_PREFIX=/usr/mipsel-linux-gnu
-           time make all FPC=ppcppc NOWPOCYCLE=1 CPU_TARGET=mipsel OS_TARGET=linux BINUTILSPREFIX=mipsel-linux- OPT="$MYOPTMIPSEL -Xr/usr/mipsel-linux-gnu -XR/usr/mipsel-linux-gnu" OVERRIDEVERSIONCHECK=1 "$@" -j  
+           time make all FPC=ppcmipsel NOWPOCYCLE=1 CPU_TARGET=mipsel OS_TARGET=linux BINUTILSPREFIX=mipsel-linux- OPT="$MYOPTMIPSEL -Xr/usr/mipsel-linux-gnu -XR/usr/mipsel-linux-gnu" OVERRIDEVERSIONCHECK=1 "$@" -j  
            export QEMU_LD_PREFIX=$OLD_QEMU_LD_PREFIX ;;
 esac

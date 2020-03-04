@@ -1,7 +1,14 @@
 #!/bin/bash
 set -e
+bbinutils mips-linux
+bbinutils mipsel-linux
 bbinutils arm-linux
 bbinutils arm-elf arm-embedded-
 bbinutils powerpc-linux
 bbinutils sparc-linux
 bbinutils sparc64-linux
+bbinutils x86_64-mingw64 x86_64-win64-
+bbinutils x86_64-darwin
+bbinutils m68k-linux
+bbinutils arm-wince
+

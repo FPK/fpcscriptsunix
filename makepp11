@@ -1,1 +1,1 @@
-make FPC=~/fpc/$MYFPC./compiler/i386/pp OPT=@~/bin/fpc.cfg "$@"
+make FPC=~/fpc/$MYFPC./compiler/i386/pp OPT="@~/bin/fpc.cfg -vbR" "$@"

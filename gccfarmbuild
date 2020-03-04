@@ -1,0 +1,41 @@
+#!/bin/bash
+set -e
+if [ -z "$1" ]
+then
+  echo Server expected
+else
+  server=$GCCFARMACCOUNT@$1.fsffrance.org
+  remote=$1.fsffrance.org 
+  if [ -z "$2" ]
+  then
+    echo Branch expected
+  else
+    if [ -z "$3" ]
+    then
+      echo Short CPU name expected
+    else  
+      cd $MYFPCDIR/$MYFPC
+      my_cpu_target=$3
+      case "$3" in
+         ppc)   my_cpu_target=powerpc ;;
+         x64)   my_cpu_target=x86_64 ;;
+         a64)   my_cpu_target=aarch64 ;;
+      esac
+      echo Using CPU_TARGET=$my_cpu_target
+      remote_home=`ssh $server pwd`
+      echo Using remote home $remote_home
+      echo Pushing to $remote
+      git push -u $remote $2
+      echo Testing if start compiler $remote_home/ppc$3 exists
+      ssh $server "$remote_home/ppc$3 -l -iTPD"
+      echo Checking number of cores
+      nr_cores=`ssh $server "nproc --all"`
+      nr_cores=$(expr $nr_cores / 2)
+      echo Building using $nr_cores
+      ssh $server "source env_linux && export FPMAKEOPT=--threads=$nr_cores && source fpcgit && make clean FPC=$remote_home/ppc$3 && time make all FPC=$remote_home/ppc$3 CPU_TARGET=$my_cpu_target OS_TARGET=linux NEWOPT=\"\$MYOPT\" OVERRIDEVERSIONCHECK=1 -j $nr_cores"
+    fi
+  fi
+  # echo Creating fpcgit
+  # ssh $server "echo export MYFPC=$GCCFARMMYFPC > fpcgit"
+  # ssh $server 'echo cd \~/fpc/\$MYFPC >> fpcgit'
+fi

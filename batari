@@ -1,0 +1,2 @@
+rm build-stamp.m68k-atari
+time make all OVERRIDEVERSIONCHECK=1 "$@" -j "CROSSOPT=-XV -Avasm -XP" "OS_TARGET=atari" "CPU_TARGET=m68k"

@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+set -e
+CPU=`uname -p`
+
+if [ -z "$1" ]
+then
+  if [ $CPU == "powerpc" ];
+  then
+    RUNMODE=native
+  else
+    RUNMODE=cross
+  fi
+else
+  RUNMODE=$1
+fi
+
+export LD_PRELOAD= 
+CURRENT_PATH=`pwd`
+
+make distclean -j TEST_FPC=$CURRENT_PATH/../compiler/ppcppc
+
+case "$RUNMODE" in
+   native) time make full FPC=fpc CPU_TARGET=powerpc OS_TARGET=linux OPT="$MYOPTPPC" OVERRIDEVERSIONCHECK=1 "$@" -j ;;
+   cross)  time make full FPC=fpc NOWPOCYCLE=1 CPU_TARGET=powerpc OS_TARGET=linux BINUTILSPREFIX=powerpc-linux- CROSSOPT="$MYOPTPPC -Xr/usr/powerpc-linux-gnu -XR/usr/powerpc-linux-gnu" OVERRIDEVERSIONCHECK=1 "$@" -j ;;
+   qemu)   OLD_LD_PREFIX=$QEMU_LD_PREFIX
+           export QEMU_LD_PREFIX=/usr/powerpc-linux-gnu
+           
+           time make full TEST_DELTEMP=1 FPCDIR=$CURRENT_PATH/.. FPC=$CURRENT_PATH/../compiler/ppcppc TEST_FPC=$CURRENT_PATH/../compiler/ppcppc TEST_CPU_TARGET=powerpc TEST_OS_TARGET=linux V=1 "OPT=-Fu$CURRENT_PATH/../rtl/units/powerpc-linux -Fu$CURRENT_PATH/../packages/rtl-objpas/units/powerpc-linux -XPpowerpc-linux-" TEST_OPT="-XPpowerpc-linux- $MYTEST_OPTPPC64LE -Foobj/linux/powerpc -Fl/usr/powerpc-linux-gnu/lib/" EMULATOR=qemu-powerpc $@ TEST_VERBOSE=1 BINUTILSPREFIX=powerpc-linux-
+           export QEMU_LD_PREFIX=$OLD_QEMU_LD_PREFIX ;;
+esac

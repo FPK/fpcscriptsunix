@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+make distclean OS_TARGET=wince CPU_TARGET=arm NOWPOCYCLE=1 "$@" -j
+make all OS_TARGET=wince CPU_TARGET=arm NOWPOCYCLE=1 "$@" -j CROSSOPT="$MYOPTARM"

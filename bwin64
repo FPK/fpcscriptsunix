@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+make distclean OS_TARGET=win64 CPU_TARGET=x86_64 NOWPOCYCLE=1 "$@" -j
+make all OS_TARGET=win64 CPU_TARGET=x86_64 NOWPOCYCLE=1 "$@" -j OPTNEW="$MYOPTX64"

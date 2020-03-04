@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+make clean -j
+CPU=`uname -p`
+
+if [ -z "$1" ]
+then
+  if [ $CPU == "m68k" ];
+  then
+    RUNMODE=native
+  else
+    RUNMODE=cross
+  fi
+else
+  RUNMODE=$1
+fi
+
+
+case "$RUNMODE" in
+   native) time make all FPC=fpc CPU_TARGET=m68k OS_TARGET=linux OPT="$MYOPTPPC" OVERRIDEVERSIONCHECK=1 "$@" -j ;;
+   cross)  time make all FPC=fpc NOWPOCYCLE=1 CPU_TARGET=m68k OS_TARGET=linux BINUTILSPREFIX=m68k-linux- CROSSOPT="$MYOPTM68K -Xr/usr/m68k-linux-gnu -XR/usr/m68k-linux-gnu" OVERRIDEVERSIONCHECK=1 "$@" -j ;;
+   qemu)   OLD_LD_PREFIX=$QEMU_LD_PREFIX
+           export QEMU_LD_PREFIX=/usr/m68k-linux-gnu
+           time make all FPC=ppcppc NOWPOCYCLE=1 CPU_TARGET=m68k OS_TARGET=linux BINUTILSPREFIX=m68k-linux- OPT="$MYOPTM68K -Xr/usr/m68k-linux-gnu -XR/usr/m68k-linux-gnu" OVERRIDEVERSIONCHECK=1 "$@" -j  
+           export QEMU_LD_PREFIX=$OLD_QEMU_LD_PREFIX ;;
+esac
