@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+# MYOPTA64 and MYTEST_OPTA64 should be set
+set -e
+CPU=`uname -m`
+
+if [ -z "$1" ]
+then
+  if [ $CPU == "aarch64" ];
+  then
+    RUNMODE=native
+  else
+    RUNMODE=cross
+  fi
+else
+  RUNMODE=$1
+fi
+
+export LD_PRELOAD= 
+CURRENT_PATH=`pwd`
+CPU_CORES=`nproc`
+
+make distclean -j TEST_FPC=$CURRENT_PATH/../compiler/ppca64
+
+case "$RUNMODE" in
+   native) time make full TEST_DELTEMP=1 FPCDIR=$CURRENT_PATH/.. FPC=$CURRENT_PATH/../compiler/ppca64 TEST_FPC=$CURRENT_PATH/../compiler/ppca64 TEST_CPU_TARGET=$CPU TEST_OS_TARGET=linux V=1 "OPT=-Fu$CURRENT_PATH/../rtl/units/$CPU-linux -Fu$CURRENT_PATH/../packages/rtl-objpas/units/$CPU-linux" TEST_OPT="$MYTEST_OPTA64 -Fd -Foobj/linux/$CPU -Fl/usr/$CPU-linux-gnu/lib/" TEST_DELTEMP=1 -j $CPU_CORES ;;
+   cross)  time make full FPC=fpc NOWPOCYCLE=1 CPU_TARGET=$CPU OS_TARGET=linux BINUTILSPREFIX=$CPU-linux- CROSSOPT="$MYOPTA64 -Xr/usr/$CPU-linux-gnu -XR/usr/$CPU-linux-gnu" OVERRIDEVERSIONCHECK=1 -j ;;
+   qemu)   OLD_LD_PREFIX=$QEMU_LD_PREFIX
+           export QEMU_LD_PREFIX=/usr/$CPU-linux-gnu
+           
+           time make full TEST_DELTEMP=1 FPCDIR=$CURRENT_PATH/.. FPC=$CURRENT_PATH/../compiler/ppca64 TEST_FPC=$CURRENT_PATH/../compiler/ppca64 TEST_CPU_TARGET=$CPU TEST_OS_TARGET=linux V=1 "OPT=-Fu$CURRENT_PATH/../rtl/units/$CPU-linux -Fu$CURRENT_PATH/../packages/rtl-objpas/units/$CPU-linux -XP$CPU-linux-" TEST_OPT="-XP$CPU-linux- $MYTEST_OPTA64 -Foobj/linux/$CPU -Fl/usr/$CPU-linux-gnu/lib/" EMULATOR=qemu-$CPU TEST_VERBOSE=1 BINUTILSPREFIX=$CPU-linux- -j
+           export QEMU_LD_PREFIX=$OLD_QEMU_LD_PREFIX ;;
+esac
