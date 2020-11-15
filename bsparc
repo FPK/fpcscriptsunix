@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+make clean -j
+CPU=`uname -p`
+
+if [ -z "$1" ]
+then
+  if [ $CPU == "sparc" ];
+  then
+    RUNMODE=native
+  else
+    RUNMODE=cross
+  fi
+else
+  RUNMODE=$1
+fi
+
+FPCCPU=sparc
+
+case "$RUNMODE" in
+   native) time make all FPC=fpc CPU_TARGET=$(FPCCPU) OS_TARGET=linux OPT="$MYOPTPPC" OVERRIDEVERSIONCHECK=1 "$@" -j ;;
+   cross)  time make all FPC=fpc NOWPOCYCLE=1 CPU_TARGET=$(FPCCPU) OS_TARGET=linux BINUTILSPREFIX=$(FPCCPU)-linux- CROSSOPT="$MYOPTSPARC -Xr/usr/$(FPCCPU)-linux-gnu -XR/usr/$(FPCCPU)-linux-gnu" OVERRIDEVERSIONCHECK=1 "$@" -j ;;
+   qemu)   OLD_LD_PREFIX=$QEMU_LD_PREFIX
+           export QEMU_LD_PREFIX=/usr/$(FPCCPU)-linux-gnu
+           time make all FPC=ppcsparc NOWPOCYCLE=1 CPU_TARGET=$(FPCCPU) OS_TARGET=linux BINUTILSPREFIX=$(FPCCPU)-linux- OPT="$MYOPTSPARC -Xr/usr/$(FPCCPU)-linux-gnu -XR/usr/$(FPCCPU)-linux-gnu" OVERRIDEVERSIONCHECK=1 "$@" -j
+           export QEMU_LD_PREFIX=$OLD_QEMU_LD_PREFIX ;;
+esac

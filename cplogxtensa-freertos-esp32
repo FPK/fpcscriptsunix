@@ -1,0 +1,2 @@
+#!/bin/bash
+cplogx $1 xtensa-freertos-esp32

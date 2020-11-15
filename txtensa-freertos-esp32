@@ -1,0 +1,5 @@
+#!/bin/bash
+set -e
+CURRENT_PATH=`pwd`
+. ~/esp/xtensa-esp32-elf-libs/progstart
+time make full FPC=fpc TEST_FPC=$CURRENT_PATH/../compiler/ppcrossxtensa TEST_CPU_TARGET=xtensa TEST_OS_TARGET=freertos TEST_BINUTILSPREFIX=xtensa-esp32-elf- TEST_OPT="-Wpesp32 -Fl~/esp/xtensa-esp32-elf-libs  -Fl~/.espressif/tools/xtensa-esp32-elf/esp-2019r2-8.2.0/xtensa-esp32-elf/xtensa-esp32-elf/lib/ -Ch65536 -Fo$CURRENT_PATH/test/cg/obj/freertos/xtensa-windowed/ $MYTEST_OPTXTENSA" "$@" TEST_VERBOSE=1 EMULATOR=~/fpc/git/fpctrunk/fr TEST_SUBARCH=lx6 -j 6

@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+make distclean -j
+make distclean -j
+time make all FPC=fpc CPU_TARGET=riscv32 OS_TARGET=linux CROSSOPT="$MYOPTRV32" OVERRIDEVERSIONCHECK=1 "$@" -j

@@ -5,8 +5,12 @@ then
 else
   TARGET=$2
 fi
+echo Using sequential number $1
+echo Copying to tests/log.$TARGET.$1
 cp output/$TARGET/log log.$TARGET.$1
+echo Copying to tests/longlog.$TARGET.$1
 cp output/$TARGET/longlog longlog.$TARGET.$1
+echo Copying to tests/faillist.$TARGET.$1
 cp output/$TARGET/faillist faillist.$TARGET.$1
 old=$(expr $1 - 1)
 diff faillist.$TARGET.$old faillist.$TARGET.$1

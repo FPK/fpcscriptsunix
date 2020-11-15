@@ -1,0 +1,2 @@
+#!/bin/bash
+~/fpc/"$MYFPC"compiler/ppcrossz80 @~/bin/fpc.cfg -XP $@

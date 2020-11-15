@@ -1,0 +1,1 @@
+make FPC=~/fpc/$MYFPC./compiler/riscv32/pp OPT=@~/bin/fpc.cfg "$@"

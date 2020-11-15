@@ -1,0 +1,1 @@
+make FPC=~/fpc/$MYFPC/compiler/xtensa/pp "OPT=@/home/florian/bin/fpc.cfg -XPxtensa-esp32-elf- $MYOPTXTENSA -Cfhard" SUBARCH=lx6 "$@"

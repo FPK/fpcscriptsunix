@@ -7,8 +7,8 @@ then
 else
   cd ~/fpc/$MYFPC
   mkdir output.$1
-  make distclean OVERRIDEVERSIONCHECK=1 "CROSSOPT=$MYOPTA64 -al" -j
-  make all OVERRIDEVERSIONCHECK=1 BINUTILSPREFIX=aarch64-linux- "CROSSOPT=$MYOPTA64 -al" "OPT=$MYOPT" -j NOWPOCYCLE=1 CPU_TARGET=aarch64
+  make distclean OVERRIDEVERSIONCHECK=1 "CROSSOPT=$MYOPTMIPSEL -al" -j
+  make all OVERRIDEVERSIONCHECK=1 "CROSSOPT=$MYOPTMIPSEL -al" "OPT=$MYOPT" -j NOWPOCYCLE=1 CPU_TARGET=mipsel
   find rtl/units -name \*.s -exec cp {} output.$1 \;
   find compiler -name \*.s -exec cp {} output.$1 \;
   find packages -name \*.s -exec cp {} output.$1 \;

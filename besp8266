@@ -1,0 +1,2 @@
+rm build-stamp.xtensa-freertos
+time make FPC=fpc all OVERRIDEVERSIONCHECK=1 "$@" -j "CROSSOPT=$MYOPTXTENSA" "OS_TARGET=freertos" "CPU_TARGET=xtensa" SUBARCH=lx106 BINUTILSPREFIX=xtensa-lx106-elf-

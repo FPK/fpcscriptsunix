@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+cd $MYFPCDIR/$MYFPC/compiler
+mkdir -p output.$1
+hostos=`$MYFPCDIR/$MYFPC./compiler/powerpc/pp -iSO`
+hostcpu=`$MYFPCDIR/$MYFPC./compiler/powerpc/pp -iSP`
+make clean compiler OPT="$MYOPTPPC -al" FPC=$MYFPCDIR/$MYFPC./compiler/powerpc/pp
+cp -a powerpc/units/powerpc-linux/*.s output.$1

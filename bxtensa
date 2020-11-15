@@ -1,0 +1,7 @@
+rm build-stamp.xtensa-linux
+if [ -z "$1" ]
+then
+   time make FPC=fpc all OVERRIDEVERSIONCHECK=1 "$@" -j "CROSSOPT=$MYOPTXTENSA -Cfhard -Cawindowed -Tlinux" "OS_TARGET=linux" "CPU_TARGET=xtensa"
+else
+   time make FPC=fpc all OVERRIDEVERSIONCHECK=1 "$@" -j "CROSSOPT=$MYOPTXTENSA" "OS_TARGET=$1" "CPU_TARGET=xtensa" SUBARCH=lx6
+fi

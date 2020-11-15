@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+find . -name Makefile.fpc | parallel fm -Tall

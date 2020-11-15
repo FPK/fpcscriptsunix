@@ -5,5 +5,4 @@ while [ -f log.x86_64-linux.$a ] ;
 do
   a=$(expr $a + 1)
 done
-echo Copying to $a
 cplog64 $a
