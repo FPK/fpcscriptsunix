@@ -15,8 +15,8 @@ else
 fi
 
 case "$RUNMODE" in
-   native) time make all NOWPOCYCLE=1 FPC=fpc CPU_TARGET=$CPU OS_TARGET=linux OPT="$MYOPTA64" OVERRIDEVERSIONCHECK=1 "$@" -j ;;
-   cross)  time make all NOWPOCYCLE=1 FPC=fpc CPU_TARGET=$CPU OS_TARGET=linux BINUTILSPREFIX=$CPU-linux- CROSSOPT="$MYOPTA64 -Xr/usr/$CPU-linux-gnu -XR/usr/aarch64linux-gnu" OVERRIDEVERSIONCHECK=1 "$@" -j ;;
+   native) time make all NOWPOCYCLE=1 FPC=fpc CPU_TARGET=aarch64 OS_TARGET=linux OPT="$MYOPTA64" OVERRIDEVERSIONCHECK=1 "$@" -j ;;
+   cross)  time make all NOWPOCYCLE=1 FPC=fpc CPU_TARGET=aarch64 OS_TARGET=linux CROSSOPT="$MYOPTA64 -Xr/usr/$CPU-linux-gnu -XR/usr/aarch64linux-gnu" OVERRIDEVERSIONCHECK=1 "$@" -j ;;
    qemu)   OLD_LD_PREFIX=$QEMU_LD_PREFIX
            export QEMU_LD_PREFIX=/usr/$CPU-linux-gnu
            time make all NOWPOCYCLE=1 FPC=ppca64 CPU_TARGET=$CPU OS_TARGET=linux BINUTILSPREFIX=$CPU-linux- OPT="$MYOPTA64 -Xr/usr/$CPU-linux-gnu -XR/usr/$CPU-linux-gnu" OVERRIDEVERSIONCHECK=1 "$@" -j
