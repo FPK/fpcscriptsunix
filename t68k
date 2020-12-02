@@ -1,0 +1,6 @@
+#!/bin/bash
+set -e
+CURRENT_PATH=`pwd`
+export LD_PRELOAD=
+export QEMU_LD_PREFIX=/usr/m68k-linux-gnu
+time make full TEST_DELTEMP=1 FPCDIR=$CURRENT_PATH/.. FPC=fpc TEST_FPC=$CURRENT_PATH/../compiler/ppcross68k TEST_CPU_TARGET=m68k TEST_OS_TARGET=linux V=1 TEST_OPT="-XPm68k-linux-gnu- $MYTEST_OPTM68K -Fd -Foobj/linux/m68k -Fl/usr/m68k-linux-gnu/lib/ -Fl/usr/lib/gcc-cross/m68k-linux-gnu/9/ -FL/lib/ld.so.1 -vbr" EMULATOR=qemu-m68k -j 16

@@ -1,2 +1,0 @@
-#!/bin/bash
-~/fpc/$MYFPC./compiler/m68k/pp @~/bin/fpc.cfg $@

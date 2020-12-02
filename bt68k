@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+set -e
+BINDIR=$( dirname "${BASH_SOURCE[0]}" )
+FPCDIR=$PWD
+{
+    $BINDIR/bm68k cross
+    cd tests
+    time $BINDIR/tm68k
+    storelogx m68k-linux
+} 2>&1 | tee -a $FPCDIR/btm68k.log
