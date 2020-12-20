@@ -1,0 +1,1 @@
+make FPC=~/fpc/$MYFPC./compiler/xtensa/pp OPT=@~/bin/fpc.cfg "$@"

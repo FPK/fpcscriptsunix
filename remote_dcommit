@@ -8,6 +8,11 @@ else
   curr_branch=$1
 fi
 
+# push to remote
+git push -u origin $curr_branch
+# check if everything has been successfully pushed
+git merge-base --is-ancestor @{u} $curr_branch
+
 ssh $SSH_OPT $DCOMMIT_REMOTE "cd $DCOMMIT_REMOTE_GITDIR && git rebase $curr_branch && git svn rebase && git svn dcommit -n && git log -n 5 && echo Press key to continue && read -n1 -s && git svn dcommit && git svn rebase"
 cd $MYFPCDIR/$MYFPC
 git fetch -a

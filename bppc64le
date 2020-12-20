@@ -1,17 +1,10 @@
 #!/usr/bin/env bash
-make distclean -j
-make distclean -j
-
-
-
-
-#!/usr/bin/env bash
 make clean -j
 CPU=`uname -p`
 
 if [ -z "$1" ]
 then
-  if [ $CPU == "mipsel" ];
+  if [ $CPU == "powerpc64" ];
   then
     RUNMODE=native
   else
@@ -23,10 +16,10 @@ fi
 
 
 case "$RUNMODE" in
-   native) time make all FPC=fpc CPU_TARGET=mipsel OS_TARGET=linux OPT="$MYOPTMIPSEL" OVERRIDEVERSIONCHECK=1 "$@" -j ;;
-   cross)  time make all FPC=fpc CPU_TARGET=powerpc64 OS_TARGET=linux OPT=-dppc64le CROSSOPT="$MYOPTPPC64LE" OVERRIDEVERSIONCHECK=1 "$@" -j
+   native) time make all FPC=fpc CPU_TARGET=powerpc64 OS_TARGET=linux OPT="$MYOPTPPC64LE" OVERRIDEVERSIONCHECK=1 "$@" -j ;;
+   cross)  time make all FPC=fpc CPU_TARGET=powerpc64 OS_TARGET=linux OPT=-dppc64le CROSSOPT="$MYOPTPPC64LE" OVERRIDEVERSIONCHECK=1 "$@" -j ;;
    qemu)   OLD_LD_PREFIX=$QEMU_LD_PREFIX
-           export QEMU_LD_PREFIX=/usr/mipsel-linux-gnu
-           time make all FPC=ppcmipsel NOWPOCYCLE=1 CPU_TARGET=mipsel OS_TARGET=linux BINUTILSPREFIX=mipsel-linux- OPT="$MYOPTMIPSEL -Xr/usr/mipsel-linux-gnu -XR/usr/mipsel-linux-gnu" OVERRIDEVERSIONCHECK=1 "$@" -j
+           export QEMU_LD_PREFIX=/usr/powerpc64-linux-gnu
+           time make all FPC=ppcmipsel NOWPOCYCLE=1 CPU_TARGET=powerpc64 OS_TARGET=linux BINUTILSPREFIX=powerpc64-linux- OPT="$MYOPTMIPSEL -Xr/usr/powerpc64-linux-gnu -XR/usr/powerpc64-linux-gnu" OVERRIDEVERSIONCHECK=1 "$@" -j
            export QEMU_LD_PREFIX=$OLD_QEMU_LD_PREFIX ;;
 esac

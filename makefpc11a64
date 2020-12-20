@@ -4,4 +4,4 @@ if [ -f ~/fpc/"$MYFPC"compiler/ppcrossa64 ]; then
 else
     FPC=~/fpc/"$MYFPC"compiler/ppca64
 fi
-make FPC=~/fpc/"$MYFPC"compiler/ppca64 OPT=@/home/florian/bin/fpc.cfg "$@"
+make FPC=$FPC "OPT=@/home/florian/bin/fpc.cfg -Fl/usr/$CPU-linux-gnu/lib/ -O4" $@  -j
