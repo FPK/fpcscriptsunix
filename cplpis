@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+for lpi in pp*.lpi
+do
+  echo Copying $lpi to ${lpi/./_fpk.}
+  cp $lpi ${lpi/./_fpk.}
+done
