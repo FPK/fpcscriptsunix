@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+make clean
+time make all FPC=fpc CPU_TARGET=arm OS_TARGET=android CROSSOPT="$MYOPTARM" BINUTILSPREFIX=arm-android- OPT=-dFPC_ARMHF OVERRIDEVERSIONCHECK=1 "$@" -j
