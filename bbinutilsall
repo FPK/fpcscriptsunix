@@ -18,4 +18,4 @@ bbinutils x86_64-openbsd nogdb
 bbinutils i386-linux i386-linux- nogdb
 bbinutils arm-linux-android arm-android- nogdb
 bbinutils avr avr-embedded- nogdb
-
+bbinutils i386-mingw32 i386-win32- nogdb
