@@ -1,9 +1,2 @@
 #!/usr/bin/env bash
-set -e
-a=1
-while [ -f log.aarch64-linux.$a ] ;
-do
-  a=$(expr $a + 1)
-done
-echo Copying to $a
-cploga64 $a
+storelogx aarch64-linux

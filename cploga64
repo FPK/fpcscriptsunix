@@ -1,6 +1,2 @@
 #!/bin/bash
-cp output/aarch64-linux/log log.aarch64-linux.$1
-cp output/aarch64-linux/longlog longlog.aarch64-linux.$1
-cp output/aarch64-linux/faillist faillist.aarch64-linux.$1
-old=$(expr $1 - 1)
-diff faillist.aarch64-linux.$old faillist.aarch64-linux.$1
+cplogx $1 aarch64-linux
