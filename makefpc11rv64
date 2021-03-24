@@ -1,0 +1,1 @@
+make FPC=~/fpc/"$MYFPC"compiler/ppcrv64 OPT=@/home/florian/bin/fpc.cfg "$@" BINUTILSPREFIX=riscv64-linux- -j

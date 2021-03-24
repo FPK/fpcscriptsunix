@@ -3,8 +3,8 @@ set -e
 BINDIR=$( dirname "${BASH_SOURCE[0]}" )
 FPCDIR=$PWD
 {
-    $BINDIR/brv64
+    $BINDIR/brv32
     cd tests
-    time $BINDIR/trv64
-    storelogrv64
-} 2>&1 | tee -a $FPCDIR/btrv64.log
+    time $BINDIR/trv32
+    storelogrv32
+} 2>&1 | tee -a $FPCDIR/btrv32.log

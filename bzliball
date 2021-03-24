@@ -1,0 +1,13 @@
+#!/bin/bash
+set -e
+
+targets=( "riscv64-linux-gnu" )
+for target in "${targets[@]}"
+do
+    cd ~/src/zlib
+    make distclean
+    CC="$target-gcc" ./configure --prefix="/usr/$target"
+    make
+    sudo make install
+    make distclean
+done

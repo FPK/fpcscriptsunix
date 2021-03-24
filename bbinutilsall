@@ -13,9 +13,11 @@ bbinutils x86_64-mingw64 x86_64-win64-
 bbinutils x86_64-darwin
 bbinutils m68k-linux
 bbinutils arm-wince
-bbinutils riscv32-linux nogdb
+bbinutils riscv32-linux
+bbinutils riscv64-linux
 bbinutils x86_64-openbsd nogdb
 bbinutils i386-linux i386-linux- nogdb
 bbinutils arm-linux-android arm-android- nogdb
 bbinutils avr avr-embedded- nogdb
 bbinutils i386-mingw32 i386-win32- nogdb
+bbinutils riscv32 riscv32-embedded- nogdb

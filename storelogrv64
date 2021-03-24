@@ -1,9 +1,4 @@
 #!/usr/bin/env bash
 set -e
-a=1
-while [ -f log.rv64.$a ] ;
-do
-  a=$(expr $a + 1)
-done
-echo Copying to $a
-cplogrv64 $a
+storelogx riscv64-linux
+

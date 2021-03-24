@@ -1,0 +1,7 @@
+#!/bin/bash
+set -e
+CURRENT_PATH=`pwd`
+export LD_PRELOAD=
+# export QEMU_LD_PREFIX=/usr/riscv64-linux-gnu
+LIBGCCPATH=$(dirname `riscv64-linux-gnu-gcc -print-libgcc-file-name`)
+time make full TEST_DELTEMP=1 FPCDIR=$CURRENT_PATH/.. FPC=fpc TEST_FPC=$CURRENT_PATH/../compiler/ppcrossrv32 TEST_CPU_TARGET=riscv32 TEST_OS_TARGET=linux V=1 TEST_OPT="$MYTEST_OPTRV32 -XPriscv32-linux- -XR/usr/riscv32-linux-gnu -Fl$LIBGCCPATH" EMULATOR=qemu-riscv32 $@ -j 6
