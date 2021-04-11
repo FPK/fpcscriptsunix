@@ -1,2 +1,3 @@
 #!/usr/bin/env bash
-storelogx aarch64-linux
+# we assume cross cpu testing but no cross OS testing, which is basically not possible this way
+storelogx aarch64-`fpc -iTO`
