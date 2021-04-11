@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -e
 bbinutils mips-linux
 bbinutils aarch64-linux
@@ -7,6 +7,7 @@ bbinutils arm-linux
 bbinutils arm-elf arm-embedded- nogdb
 bbinutils arm-elf arm-freertos- nogdb
 bbinutils powerpc-linux
+bbinutils powerpc64le-linux
 bbinutils sparc-linux
 bbinutils sparc64-linux
 bbinutils x86_64-mingw64 x86_64-win64-
@@ -21,3 +22,4 @@ bbinutils arm-linux-android arm-android- nogdb
 bbinutils avr avr-embedded- nogdb
 bbinutils i386-mingw32 i386-win32- nogdb
 bbinutils riscv32 riscv32-embedded- nogdb
+bbinutils xtensa-linux nogdb
