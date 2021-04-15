@@ -1,1 +1,1 @@
-~/fpc/$MYFPC./utils/fpcm/bin/x86_64-linux/fpcmake $@
+~/fpc/$MYFPC./utils/fpcm/bin/`fpc -iSP`-`fpc -iSO`/fpcmake $@
