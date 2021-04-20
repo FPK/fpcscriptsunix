@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
 make distclean -j
 CPU=`uname -m`
+OS_TARGET=`fpc -iTO`
 
 if [ -z "$1" ]
 then
-  if [ $CPU == "aarch64" ];
+  if [[ $CPU == "aarch64" || $CPU == "arm64" ]];
   then
     RUNMODE=native
   else
@@ -14,12 +15,21 @@ else
   RUNMODE=$1
 fi
 
+if [ $OS_TARGET == "linux" ];
+then
+  CROSSOPT="$MYOPTA64 -Xr/usr/$CPU-linux-gnu -XR/usr/aarch64linux-gnu"
+fi
+
+if [ $OS_TARGET == "darwin" ];
+then
+  CROSSOPT="$MYOPTA64 -XR/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk"
+fi
+
 case "$RUNMODE" in
-   native) time make all NOWPOCYCLE=1 FPC=fpc CPU_TARGET=aarch64 OS_TARGET=linux OPT="$MYOPTA64" OVERRIDEVERSIONCHECK=1 "$@" -j ;;
-   cross)  time make all NOWPOCYCLE=1 FPC=fpc CPU_TARGET=aarch64 OS_TARGET=linux CROSSOPT="$MYOPTA64 -Xr/usr/$CPU-linux-gnu -XR/usr/aarch64linux-gnu" OVERRIDEVERSIONCHECK=1 "$@" -j ;;
+   native) time make all NOWPOCYCLE=1 FPC=fpc CPU_TARGET=aarch64 OS_TARGET=$OS_TARGET OPT="$MYOPTA64" OVERRIDEVERSIONCHECK=1 "$@" -j ;;
+   cross)  time make all NOWPOCYCLE=1 FPC=fpc CPU_TARGET=aarch64 OS_TARGET=$OS_TARGET CROSSOPT="$CROSSOPT" OVERRIDEVERSIONCHECK=1 "$@" -j ;;
    qemu)   OLD_LD_PREFIX=$QEMU_LD_PREFIX
            export QEMU_LD_PREFIX=/usr/$CPU-linux-gnu
-           time make all NOWPOCYCLE=1 FPC=ppca64 CPU_TARGET=$CPU OS_TARGET=linux BINUTILSPREFIX=$CPU-linux- OPT="$MYOPTA64 -Xr/usr/$CPU-linux-gnu -XR/usr/$CPU-linux-gnu" OVERRIDEVERSIONCHECK=1 "$@" -j
+           time make all NOWPOCYCLE=1 FPC=ppca64 CPU_TARGET=$CPU OS_TARGET=$OS_TARGET BINUTILSPREFIX=$CPU-linux- OPT="$MYOPTA64 -Xr/usr/$CPU-linux-gnu -XR/usr/$CPU-linux-gnu" OVERRIDEVERSIONCHECK=1 "$@" -j
            export QEMU_LD_PREFIX=$OLD_QEMU_LD_PREFIX ;;
 esac
-

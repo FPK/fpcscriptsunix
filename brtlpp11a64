@@ -4,7 +4,7 @@ if [ -z "$1" ]
 then
   echo Missing suffix
 else
-  cd $MYFPCDIR/$MYFPC/rtl/linux
+  cd $MYFPCDIR/$MYFPC/rtl/`$MYFPCDIR/$MYFPC/compiler/aarch64/pp -iTO`
   make distclean FPC=$MYFPCDIR/$MYFPC/compiler/aarch64/pp PP=fpc "OPT=@~/bin/fpc.cfg -al $MYOPTA64"
   make all FPC=$MYFPCDIR/$MYFPC/compiler/aarch64/pp PP=fpc "OPT=@~/bin/fpc.cfg -vi -al $MYOPTA64" -j
   cd ..
