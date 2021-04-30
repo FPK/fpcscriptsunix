@@ -23,3 +23,4 @@ bbinutils avr avr-embedded- nogdb
 bbinutils i386-mingw32 i386-win32- nogdb
 bbinutils riscv32 riscv32-embedded- nogdb
 bbinutils xtensa-linux nogdb
+bbinutils aarch64-linux
