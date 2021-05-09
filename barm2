@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+make clean -j
+time make all FPC=fpc CPU_TARGET=arm OS_TARGET=linux CROSSOPT="$MYOPTARM -Cparmv2" OVERRIDEVERSIONCHECK=1 "$@" -j
