@@ -19,7 +19,12 @@ case "$RUNMODE" in
    native) time make all FPC=fpc CPU_TARGET=powerpc OS_TARGET=linux OPT="$MYOPTPPC" OVERRIDEVERSIONCHECK=1 "$@" -j ;;
    cross)  time make all FPC=fpc NOWPOCYCLE=1 CPU_TARGET=powerpc OS_TARGET=linux BINUTILSPREFIX=powerpc-linux- CROSSOPT="$MYOPTPPC -Xr/usr/powerpc-linux-gnu -XR/usr/powerpc-linux-gnu" OVERRIDEVERSIONCHECK=1 "$@" -j ;;
    qemu)   OLD_LD_PREFIX=$QEMU_LD_PREFIX
+           OLD_BINUTILSPREFIX=$BINUTILSPREFIX
            export QEMU_LD_PREFIX=/usr/powerpc-linux-gnu
-           time make all FPC=ppcppc NOWPOCYCLE=1 CPU_TARGET=powerpc OS_TARGET=linux BINUTILSPREFIX=powerpc-linux- OPT="$MYOPTPPC -Xr/usr/powerpc-linux-gnu -XR/usr/powerpc-linux-gnu" OVERRIDEVERSIONCHECK=1 "$@" -j  
+           export BINUTILSPREFIX=powerpc-linux-
+
+           time make all FPC=ppcppc NOWPOCYCLE=1 CPU_TARGET=powerpc OS_TARGET=linux BINUTILSPREFIX=powerpc-linux- OPT="$MYOPTPPC -Xr/usr/powerpc-linux-gnu -XR/usr/powerpc-linux-gnu" OVERRIDEVERSIONCHECK=1 "$@" -j
+
+           export BINUTILSPREFIX=$OLD_BINUTILSPREFIX
            export QEMU_LD_PREFIX=$OLD_QEMU_LD_PREFIX ;;
 esac

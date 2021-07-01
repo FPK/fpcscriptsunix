@@ -14,17 +14,20 @@ else
   RUNMODE=$1
 fi
 
-export LD_PRELOAD= 
+export LD_PRELOAD=
 CURRENT_PATH=`pwd`
 
 make distclean -j TEST_FPC=$CURRENT_PATH/../compiler/ppcppc
 
 case "$RUNMODE" in
    native) time make full FPC=fpc CPU_TARGET=powerpc OS_TARGET=linux OPT="$MYOPTPPC" OVERRIDEVERSIONCHECK=1 -j ;;
-   cross)  time make full FPC=fpc NOWPOCYCLE=1 CPU_TARGET=powerpc OS_TARGET=linux BINUTILSPREFIX=powerpc-linux- CROSSOPT="$MYOPTPPC -Xr/usr/powerpc-linux-gnu -XR/usr/powerpc-linux-gnu" OVERRIDEVERSIONCHECK=1 -j ;;
+   cross)  time make full FPC=fpc TEST_FPC=$CURRENT_PATH/../compiler/ppcrossppc NOWPOCYCLE=1 CPU_TARGET=powerpc OS_TARGET=linux CROSSOPT="$MYOPTPPC -XPpowerpc-linux- -Xr/usr/powerpc-linux-gnu -XR/usr/powerpc-linux-gnu" OVERRIDEVERSIONCHECK=1 -j TEST_OPT="-XPpowerpc-linux- $MYTEST_OPTPPC -Fd -Foobj/linux/powerpc -XR/usr/powerpc-linux-gnu" ;;
    qemu)   OLD_LD_PREFIX=$QEMU_LD_PREFIX
+           OLD_BINUTILSPREFIX=$BINUTILSPREFIX
            export QEMU_LD_PREFIX=/usr/powerpc-linux-gnu
-           
-           time make full TEST_DELTEMP=1 FPCDIR=$CURRENT_PATH/.. FPC=$CURRENT_PATH/../compiler/ppcppc TEST_FPC=$CURRENT_PATH/../compiler/ppcppc TEST_CPU_TARGET=powerpc TEST_OS_TARGET=linux V=1 "OPT=-Fu$CURRENT_PATH/../rtl/units/powerpc-linux -Fu$CURRENT_PATH/../packages/rtl-objpas/units/powerpc-linux -XPpowerpc-linux-" TEST_OPT="-XPpowerpc-linux- $MYTEST_OPTPPC -Fd -Foobj/linux/powerpc -Fl/usr/powerpc-linux-gnu/lib/" EMULATOR=qemu-powerpc TEST_VERBOSE=1 BINUTILSPREFIX=powerpc-linux-
+           export BINUTILSPREFIX=powerpc-linux-
+
+           time make full TEST_DELTEMP=1 FPCDIR=$CURRENT_PATH/.. FPC=ppcppc BINUTLSPREFIX=$BINUTILSPREFIX TEST_FPC=$CURRENT_PATH/../compiler/ppcppc TEST_CPU_TARGET=powerpc TEST_OS_TARGET=linux V=1 "OPT=-Fu$CURRENT_PATH/../rtl/units/powerpc-linux -Fu$CURRENT_PATH/../packages/rtl-objpas/units/powerpc-linux -XP$BINUTILSPREFIX" TEST_OPT="-XP$BINUTILSPREFIX $MYTEST_OPTPPC -Fd -Foobj/linux/powerpc -XR/usr/powerpc-linux-gnu" -j
+           export BINUTILSPREFIX=$OLD_BINUTILSPREFIX
            export QEMU_LD_PREFIX=$OLD_QEMU_LD_PREFIX ;;
 esac
