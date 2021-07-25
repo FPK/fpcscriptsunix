@@ -1,2 +1,7 @@
+#!/bin/bash
 rm build-stamp.avr-embedded
+if [ -z "$SUBARCH" ]
+then
+  SUBARCH=avr5
+fi
 time make all OVERRIDEVERSIONCHECK=1 "$@" -j "OPTNEW=$MYOPTAVR -vbr" OPT=-vbr "OS_TARGET=embedded" "CPU_TARGET=avr" "SUBARCH=avr5"
