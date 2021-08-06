@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+make clean 
+time make all FPC=fpc CPU_TARGET=mipsel OS_TARGET=embedded SUBARCH=pic32mx CROSSOPT="$MYOPTMIPSEL -Cfsoft" OVERRIDEVERSIONCHECK=1 "$@" -j

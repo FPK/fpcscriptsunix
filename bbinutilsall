@@ -25,3 +25,4 @@ bbinutils riscv32 riscv32-embedded- nogdb
 bbinutils xtensa-linux nogdb
 bbinutils powerpc64le-linux
 bbinutils aarch64-linux
+bbinutils mipsel mipsel-embedded- nogdb
