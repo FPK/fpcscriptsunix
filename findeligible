@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+
+SVNFIXES="origin/svn/fixes_3_2"
+FIXES="origin/fixes_3_2"
+MAIN="origin/main"
+
+SVNFIXES_HASH=`git log "$SVNFIXES" --pretty=format:"%h" | head -n 1`
+MAIN_HASH=`git log "$MAIN" --pretty=format:"%h" | head -n 1`
+
+FIXES_HASH=`git log "$FIXES" --pretty=format:"%h" | head -n 1`
+GIT_START_HASH=37863a61
+
+MERGE_BASE=`git merge-base $SVNFIXES_HASH $MAIN_HASH`
+
+# get all merged revisions
+git log $MERGE_BASE..$SVNFIXES_HASH | grep '\-\-\- Merging r[0-9]* into' | sed 's/[^0-9]*//g' > mergedrevs
+
+# get all trunk revisions
+git log $MERGE_BASE..$MAIN_HASH | grep 'git-svn-id: trunk@[0-9]* -' | sed 's/[^0-9]*//g' > trunkrevs
+
+# get all hashes of merged commits created in git
+git log $SVNFIXES_HASH..$FIXES_HASH --grep="cherry picked from commit" --pretty=format:"%h" > mergedhashes
+
+# get all hashes of commits created to main in git
+git log $GIT_START_HASH..HEAD --pretty=format:"%h" > mainhashes
+
+# find all revs not in fixes but in trunk
+grep -Fxv -f mergedrevs trunkrevs > eligiblerevs
+
+# find all hashes not in fixes but in main
+grep -Fxv -f mergedhashes mainhashes > eligiblehashes
+
+# use parallel: Tange (2011): GNU Parallel - The Command-Line Power Tool,
+# ;login: The USENIX Magazine, February 2011:42-47.
+# get eligible revs from svn times
+parallel -I{} git log $MERGE_BASE..$TRUNK_HASH --grep='trunk@{}' <eligiblerevs
+# get eligible hashes from git times
+parallel git log -1 <eligiblehashes
