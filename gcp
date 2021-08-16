@@ -1,2 +1,3 @@
 #!/usr/bin/env bash
-git cherry-pick -x $*
+git show --name-only $*
+git cherry-pick -x $* || exit 255

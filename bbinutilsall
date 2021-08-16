@@ -26,3 +26,5 @@ bbinutils xtensa-linux nogdb
 bbinutils powerpc64le-linux
 bbinutils aarch64-linux
 bbinutils mipsel mipsel-embedded- nogdb
+bbinutils powerpc64-linux
+
