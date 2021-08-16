@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+git cherry-pick -x $1 || (git reset --hard && echo $1 >> notpicked.txt)
