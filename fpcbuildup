@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+set -e
+# get lastest fixes
+FIXES=`git branch -a | grep -o 'fixes_[0-9]*_[0-9]*' | sort -r | head -1`
+echo Using $FIXES for fixes
+for branch in main $FIXES
+do
+    git checkout $branch
+    git pull
+    cd fpcsrc
+    git checkout $branch
+    git pull
+    cd ..
+    cd fpcdocs
+    git checkout main
+    git pull
+    cd ..
+    git commit -a -m "* updated"
+    git push
+done
+git checkout main
