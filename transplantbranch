@@ -3,6 +3,12 @@ set -e
 # adapt as needed
 fpcrepo="$HOME/fpc/git/fpc2"
 
+if [ ! -d "${fpcrepo}" ]; 
+then
+  echo Target repository directory $fpcrepo does not exist, set \$fpcrepo properly in the script $0
+  exit 255
+fi
+
 branch=$1
 startdir=`pwd`
 mainold=`git log -n 1 --format=%H`
