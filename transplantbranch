@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+set -e
+# adapt as needed
+fpcrepo="$HOME/fpc/git/fpc2"
+
+branch=$1
+startdir=`pwd`
+mainold=`git log -n 1 --format=%H`
+branchheadold=`git log -n 1 origin/$branch --format=%H`
+mergebaseold=`git merge-base $mainold $branchheadold`
+
+mergebasedate=`git show -s --format=%ci $mergebaseold`
+# set date to one second later so git log --before works
+mergebasesecs=`gdate +%s --date="$mergebasedate"`
+mergebasedateafter=`gdate '+%F %T' --date="@$(($mergebasesecs + 1))"`
+
+cd $fpcrepo
+git checkout main || exit 255
+mergebasenew=`git log -n 1 --before="$mergebasedateafter" --format=%H`
+git checkout $mergebasenew || exit 255
+git checkout -b $branch || exit 255
+cd $startdir
+git format-patch $mergebaseold..$branchheadold --stdout > transplant.patch || exit 255
+cd $fpcrepo
+git am < $startdir/transplant.patch || exit 255
