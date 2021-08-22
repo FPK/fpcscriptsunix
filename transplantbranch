@@ -14,7 +14,7 @@ mergebasedate=`git show -s --format=%ci $mergebaseold`
 mergebasesecs=`gdate +%s --date="$mergebasedate"`
 mergebasedateafter=`gdate '+%F %T' --date="@$(($mergebasesecs + 1))"`
 
-cd $fpcrepo
+cd $fpcrepo || exit 255
 git checkout main || exit 255
 mergebasenew=`git log -n 1 --before="$mergebasedateafter" --format=%H`
 git checkout $mergebasenew || exit 255
