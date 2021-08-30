@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+cd $MYFPCDIR/$MYFPC/compiler
+mkdir -p output.$1
+FPC=$MYFPCDIR/$MYFPC./compiler/aarch64/pp
+make clean compiler OPT="$MYOPTA64 -al" FPC=$FPC
+cp -a aarch64/units/aarch64-`$FPC -iTO`/*.s output.$1

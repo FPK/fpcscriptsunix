@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
-rm build-stamp.avr-embedded
+rm -f build-stamp.avr-embedded
 if [ -z "$SUBARCH" ]
 then
   SUBARCH=avr5
