@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+make distclean "$@" -j
+make all NOWPOCYCLE=1 "$@" LLVM=1 -j OPTNEW="$MYOPTX64" OVERRIDEVERSIONCHECK=1
