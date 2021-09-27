@@ -1,2 +1,0 @@
-#!/bin/bash
-~/fpc/compiler/ppc386 -n @/home/florian/bin/fpc.cfg $@
