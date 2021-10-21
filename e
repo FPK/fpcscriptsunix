@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 if command -v code &> /dev/null
 then
-  code $@
+  code -g $@
 elif command -v kate &> /dev/null
 then
   kate $@ 2> /dev/null &
