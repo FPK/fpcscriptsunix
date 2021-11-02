@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+make distclean NOWPOCYCLE=1 "$@" -j LLVM=1
+make all NOWPOCYCLE=1 "$@" -j OPTNEW="$MYOPTAX64" OVERRIDEVERSIONCHECK=1 LLVM=1

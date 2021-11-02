@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+cd $MYFPCDIR/$MYFPC/compiler
+mkdir -p output.$1
+make clean compiler OPT="$MYOPTX64 -al" OS_TARGET=win64 FPC=$MYFPCDIR/$MYFPC./compiler/x86_64/pp
+cp -a x86_64/units/x86_64-win64/*.s output.$1
