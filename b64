@@ -1,3 +1,5 @@
 #!/usr/bin/env bash
-make distclean NOWPOCYCLE=1 "$@" -j
-make all NOWPOCYCLE=1 "$@" -j OPT="-vbr" OPTNEW="$MYOPTX64" OVERRIDEVERSIONCHECK=1
+set -e
+
+make distclean NOWPOYCLE=1 "$@" -j
+make all NOWPOCYCLE=1 "$@" -j OPT="-vbr" FPC=ppcx64 OPT="$MYOPTX64" OVERRIDEVERSIONCHECK=1
