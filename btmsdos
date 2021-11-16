@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+set -e
+BINDIR=$( dirname "${BASH_SOURCE[0]}" )
+FPCDIR=$PWD
+{
+  $BINDIR/bmsdos
+  cd tests
+  time $BINDIR/tmsdos
+  storelogx i8086-msdos
+} 2>&1 | tee -a $FPCDIR/btmsdos.log
