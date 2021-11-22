@@ -1,8 +1,16 @@
 #!/bin/bash
 set -e
 rm -f build-stamp.avr-embedded
+CPU=`uname -m`
+
+case "$CPU" in
+   aarch64) OPT="-vbr $MYOPTA64" ;;
+   amd64|x86_64) OPT="-vbr $MYOPTX64" ;;
+   i386|i586|i686) OPT="-vbr $MYOPT386" ;;
+esac
+
 if [ -z "$SUBARCH" ]
 then
   SUBARCH=avr5
 fi
-time make all OVERRIDEVERSIONCHECK=1 "$@" -j "OPTNEW=$MYOPTAVR -vbr" OPT=-"vbr $MYOPTA64" "OS_TARGET=embedded" "CPU_TARGET=avr" "SUBARCH=$SUBARCH"
+time make all OVERRIDEVERSIONCHECK=1 "$@" -j "OPTNEW=$MYOPTAVR -vbr" OPT="$OPT" "OS_TARGET=embedded" "CPU_TARGET=avr" "SUBARCH=$SUBARCH"
