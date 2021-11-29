@@ -1,0 +1,1 @@
+make FPC=~/fpc/$MYFPC./compiler/powerpc64/pp OPT=@~/bin/fpc.cfg "$@"
