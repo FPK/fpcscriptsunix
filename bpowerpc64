@@ -4,7 +4,7 @@ CPU=`uname -p`
 
 if [ -z "$1" ]
 then
-  if [ $CPU == "powerpc64le" ];
+  if [ $CPU == "powerpc64" ];
   then
     RUNMODE=native
   else
@@ -17,13 +17,13 @@ fi
 
 case "$RUNMODE" in
    native) time make all FPC=ppcppc64 CPU_TARGET=powerpc OS_TARGET=linux OPT="$MYOPTPPC64" OVERRIDEVERSIONCHECK=1 "$@" -j ;;
-   cross)  time make all FPC=fpc NOWPOCYCLE=1 CPU_TARGET=powerpc64 OS_TARGET=linux OPT=-dppc64le BINUTILSPREFIX=powerpc64le-linux- CROSSOPT="$MYOPTPPC64 -Xr/usr/powerpc64le-linux-gnu -XR/usr/powerpc64le-linux-gnu" OVERRIDEVERSIONCHECK=1 "$@" -j ;;
+   cross)  time make all FPC=fpc NOWPOCYCLE=1 CPU_TARGET=powerpc64 OS_TARGET=linux BINUTILSPREFIX=powerpc64-linux- CROSSOPT="$MYOPTPPC64 -Xr/usr/powerpc64-linux-gnu -XR/usr/powerpc64-linux-gnu" OVERRIDEVERSIONCHECK=1 "$@" -j ;;
    qemu)   OLD_LD_PREFIX=$QEMU_LD_PREFIX
            OLD_BINUTILSPREFIX=$BINUTILSPREFIX
-           export QEMU_LD_PREFIX=/usr/powerpc64le-linux-gnu
+           export QEMU_LD_PREFIX=/usr/powerpc64-linux-gnu
            export BINUTILSPREFIX=powerpc64-linux-
 
-           time make all FPC=ppcppc64 NOWPOCYCLE=1 CPU_TARGET=powerpc64 OS_TARGET=linux OPT=-dppc64le BINUTILSPREFIX=powerpc64le-linux- OPT="$MYOPTPPC64 -Xr/usr/powerpc64le-linux-gnu -XR/usr/powerpc64le-linux-gnu" OVERRIDEVERSIONCHECK=1 "$@" -j
+           time make all FPC=ppcppc64 NOWPOCYCLE=1 CPU_TARGET=powerpc64 OS_TARGET=linux BINUTILSPREFIX=powerpc64-linux- OPT="$MYOPTPPC64 -Xr/usr/powerpc64-linux-gnu -XR/usr/powerpc64-linux-gnu" OVERRIDEVERSIONCHECK=1 "$@" -j
 
            export BINUTILSPREFIX=$OLD_BINUTILSPREFIX
            export QEMU_LD_PREFIX=$OLD_QEMU_LD_PREFIX ;;

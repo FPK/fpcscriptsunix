@@ -1,2 +1,8 @@
 #!/usr/bin/env bash
-git branch -D $(git branch | grep 'mr-*')
+if [ -z "$1" ]
+then
+  git branch -D $(git branch | grep 'mr-*')
+else
+  git branch -D $(git branch | grep "mr-$1")
+fi
+
