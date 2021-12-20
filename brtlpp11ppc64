@@ -5,8 +5,8 @@ then
   echo Missing suffix
 else
   cd $MYFPCDIR/$MYFPC/rtl/linux
-  make distclean FPC=$MYFPCDIR/$MYFPC/compiler/powerpc/pp "OPT=@~/bin/fpc.cfg -al $MYOPTPPC"
-  make all FPC=$MYFPCDIR/$MYFPC/compiler/powerpc/pp "OPT=@~/bin/fpc.cfg -vi -al $MYOPTPPC" -j
+  make distclean FPC=$MYFPCDIR/$MYFPC/compiler/powerpc64/pp "OPT=@~/bin/fpc.cfg -al $MYOPTPPC64"
+  make all FPC=$MYFPCDIR/$MYFPC/compiler/powerpc64/pp "OPT=@~/bin/fpc.cfg -vi -al $MYOPTPPC64" -j
   cd ..
   rm -rf units.$1
   cp -a units units.$1
