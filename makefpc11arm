@@ -1,1 +1,9 @@
-make FPC=~/fpc/"$MYFPC"compiler/ppcarm OPT=@/home/florian/bin/fpc.cfg "$@"
+#!/usr/bin/env bash
+
+if [ -f ~/fpc/"$MYFPC"compiler/ppcrossarm ]; then
+    FPC=~/fpc/"$MYFPC"compiler/ppcrossarm
+else
+    FPC=~/fpc/"$MYFPC"compiler/ppcarm
+fi
+
+make FPC=$FPC OPT=@/home/florian/bin/fpc.cfg "$@"
