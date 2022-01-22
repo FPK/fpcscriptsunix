@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+set -e
+BINDIR=$( dirname "${BASH_SOURCE[0]}" )
+FPCDIR=$PWD
+{
+    $BINDIR/bjvm
+    cd tests
+    time $BINDIR/tjvm
+} 2>&1 | tee -a $FPCDIR/btjvm.log

@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+set -e
+cd test/jvm
+./testall.sh fpc11jvm

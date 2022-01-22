@@ -1,2 +1,4 @@
-rm build-stamp.jvm-java
-time make all OVERRIDEVERSIONCHECK=1 $* -j "OPTNEW=$MYOPTJVM" "OS_TARGET=java" "CPU_TARGET=jvm"
+#!/usr/bin/env bash
+set -e
+make clean "OS_TARGET=java" "CPU_TARGET=jvm" -j $*
+time make all OVERRIDEVERSIONCHECK=1 $* -j "OPT=$OS_HOST_OPT" "OPTNEW=$MYOPTJVM" "OS_TARGET=java" "CPU_TARGET=jvm"
