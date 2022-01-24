@@ -1,0 +1,4 @@
+set -e
+fpc11avr $* || exit 255
+time avrsim $1.bin || (echo $? && exit 255)
+echo =================== Ok =================== 

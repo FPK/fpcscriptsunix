@@ -1,0 +1,4 @@
+set -e
+fpc118086 $* || exit 255
+time dosbox $1.exe || (echo $? && exit 255)
+echo =================== Ok =================== 
