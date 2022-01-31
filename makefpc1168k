@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+if [ -f ~/fpc/"$MYFPC"compiler/ppcross68k ]; then
+    FPC="$MYFPCDIR"/"$MYFPC"compiler/ppcross68k
+else
+    FPC="$MYFPCDIR"/"$MYFPC"compiler/ppc68k
+fi
+
+make FPC=$FPC OPT=@$HOME/bin/fpc.cfg "$@"
