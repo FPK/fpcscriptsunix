@@ -27,4 +27,4 @@ bbinutils powerpc64le-linux
 bbinutils aarch64-linux
 bbinutils mipsel mipsel-embedded- nogdb
 bbinutils powerpc64-linux
-
+bbinutils mips64el-linux gdb
