@@ -1,2 +1,4 @@
-rm build-stamp.m68k-atari
-time gmake all OVERRIDEVERSIONCHECK=1 "$@" -j "FPCOPT=$OS_HOST_OPT" "CROSSOPT=-XV -Avasm -XP" "OS_TARGET=atari" "CPU_TARGET=m68k"
+#!/usr/bin/env bash
+set -e
+make distclean -j "OS_TARGET=atari" "CPU_TARGET=m68k"
+time make all OVERRIDEVERSIONCHECK=1 "$@" -j "FPCOPT=$OS_HOST_OPT" "CROSSOPT=-XV -Avasm -XP" "OS_TARGET=atari" "CPU_TARGET=m68k"
