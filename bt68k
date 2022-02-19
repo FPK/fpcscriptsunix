@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 set -e
+set -x
 BINDIR=$( dirname "${BASH_SOURCE[0]}" )
 FPCDIR=$PWD
 {
-    $BINDIR/b68k cross
+    $BINDIR/b68k
     cd tests
     time $BINDIR/t68k
     storelogx m68k-linux
