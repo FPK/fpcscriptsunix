@@ -1,2 +1,0 @@
-#!/usr/bin/env bash
-svn mergeinfo --show-revs eligible ^/$1 | xargs -n 1 svn log -v ^/$1 -r

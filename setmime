@@ -1,3 +1,0 @@
-#!/bin/bash
-svn propset svn:mime-type text/plain $*
-svn propset svn:eol-style native $*
