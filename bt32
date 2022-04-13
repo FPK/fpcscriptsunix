@@ -2,6 +2,7 @@
 set -e
 BINDIR=$( dirname "${BASH_SOURCE[0]}" )
 FPCDIR=$PWD
+export BINUTILSPREFIX=i686-linux
 {
 	$BINDIR/b32
 	cd tests

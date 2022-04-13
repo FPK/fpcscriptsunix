@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -e
+set -x
+BINDIR=$( dirname "${BASH_SOURCE[0]}" )
+FPCDIR=$PWD
+{
+    $BINDIR/bmipsel
+    cd tests
+    time $BINDIR/tmipsel
+    storelogx mipsel-linux
+} 2>&1 | tee -a $FPCDIR/btmipsel.log

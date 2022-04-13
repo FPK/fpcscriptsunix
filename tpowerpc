@@ -27,7 +27,7 @@ case "$RUNMODE" in
            export QEMU_LD_PREFIX=/usr/powerpc-linux-gnu
            export BINUTILSPREFIX=powerpc-linux-
 
-           time make full TEST_DELTEMP=1 FPCDIR=$CURRENT_PATH/.. FPC=ppcppc BINUTLSPREFIX=$BINUTILSPREFIX TEST_FPC=$CURRENT_PATH/../compiler/ppcppc TEST_CPU_TARGET=powerpc TEST_OS_TARGET=linux V=1 "OPT=-Fu$CURRENT_PATH/../rtl/units/powerpc-linux -Fu$CURRENT_PATH/../packages/rtl-objpas/units/powerpc-linux -XP$BINUTILSPREFIX" TEST_OPT="-XP$BINUTILSPREFIX $MYTEST_OPTPPC -Fd -Foobj/linux/powerpc -XR/usr/powerpc-linux-gnu" -j
+           time make full TEST_DELTEMP=1 FPCDIR=$CURRENT_PATH/.. FPC=ppcppc BINUTLSPREFIX=$BINUTILSPREFIX TEST_FPC=$CURRENT_PATH/../compiler/ppcppc TEST_CPU_TARGET=powerpc TEST_OS_TARGET=linux "OPT=-Fu$CURRENT_PATH/../rtl/units/powerpc-linux -Fu$CURRENT_PATH/../packages/rtl-objpas/units/powerpc-linux -XP$BINUTILSPREFIX" TEST_OPT="-XP$BINUTILSPREFIX $MYTEST_OPTPPC -Fd -Foobj/linux/powerpc -XR/usr/powerpc-linux-gnu" -j
            export BINUTILSPREFIX=$OLD_BINUTILSPREFIX
            export QEMU_LD_PREFIX=$OLD_QEMU_LD_PREFIX ;;
 esac

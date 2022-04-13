@@ -3,4 +3,4 @@ set -e
 CURRENT_PATH=`pwd`
 export LD_PRELOAD= 
 export QEMU_LD_PREFIX=/usr/mipsel-linux-gnu
-time make full TEST_DELTEMP=1 FPCDIR=$CURRENT_PATH/.. FPC=fpc TEST_FPC=$CURRENT_PATH/../compiler/mipsel TEST_CPU_TARGET=mipsel TEST_OS_TARGET=linux V=1 TEST_OPT="-XPmipsel-linux- $MYTEST_OPTMIPSEL -Fd -Foobj/linux/mipsel -Fl/usr/mipsel-linux-gnu/lib/ -FL/lib/ld.so.1" EMULATOR=qemu-mipsel -j 10 TEST_VERBOSE=1
+time make full TEST_DELTEMP=1 FPCDIR=$CURRENT_PATH/.. FPC=fpc TEST_FPC=$CURRENT_PATH/../compiler/ppcmipsel TEST_CPU_TARGET=mipsel TEST_OS_TARGET=linux TEST_OPT="-XPmipsel-linux- $MYTEST_OPTMIPSEL -Fd -Foobj/linux/mipsel -Xr/usr/mipsel-linux-gnu -XR/usr/mipsel-linux-gnu" EMULATOR=qemu-mipsel -j 10

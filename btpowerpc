@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -e
+set -x
+BINDIR=$( dirname "${BASH_SOURCE[0]}" )
+FPCDIR=$PWD
+{
+    $BINDIR/bpowerpc
+    cd tests
+    time $BINDIR/tpowerpc
+    storelogx powerpc-linux
+} 2>&1 | tee -a $FPCDIR/btpowerpc.log
