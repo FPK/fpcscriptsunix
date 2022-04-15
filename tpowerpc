@@ -21,7 +21,11 @@ make distclean -j TEST_FPC=$CURRENT_PATH/../compiler/ppcppc
 
 case "$RUNMODE" in
    native) time make full FPC=fpc CPU_TARGET=powerpc OS_TARGET=linux OPT="$MYOPTPPC" OVERRIDEVERSIONCHECK=1 -j ;;
-   cross)  time make full FPC=fpc TEST_FPC=$CURRENT_PATH/../compiler/ppcrossppc NOWPOCYCLE=1 CPU_TARGET=powerpc OS_TARGET=linux CROSSOPT="$MYOPTPPC -XPpowerpc-linux- -Xr/usr/powerpc-linux-gnu -XR/usr/powerpc-linux-gnu" OVERRIDEVERSIONCHECK=1 -j TEST_OPT="-XPpowerpc-linux- $MYTEST_OPTPPC -Fd -Foobj/linux/powerpc -XR/usr/powerpc-linux-gnu" ;;
+   cross)  OLD_LD_PREFIX=$QEMU_LD_PREFIX
+           OLD_BINUTILSPREFIX=$BINUTILSPREFIX
+           export QEMU_LD_PREFIX=/usr/powerpc-linux-gnu
+           time make full TEST_DELTEMP=1 FPC=fpc FPCDIR=$CURRENT_PATH/.. TEST_FPC=$CURRENT_PATH/../compiler/ppcrossppc TEST_CPU_TARGET=powerpc TEST_OS_TARGET=linux OVERRIDEVERSIONCHECK=1 -j TEST_OPT="-XPpowerpc-linux- $MYTEST_OPTPPC -Fd -Foobj/linux/powerpc -XR/usr/powerpc-linux-gnu"
+           export QEMU_LD_PREFIX=$OLD_QEMU_LD_PREFIX ;;
    qemu)   OLD_LD_PREFIX=$QEMU_LD_PREFIX
            OLD_BINUTILSPREFIX=$BINUTILSPREFIX
            export QEMU_LD_PREFIX=/usr/powerpc-linux-gnu
