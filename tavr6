@@ -1,0 +1,2 @@
+make distclean TEST_DELTEMP=1 FPC=$PWD/../compiler/ppcx64 TEST_FPC=$pwd/../compiler/ppcrossavr V=1 "TEST_SUBARCH=avr6" "TEST_OPT=$MYTEST_OPTAVR" "$@" "TEST_VERBOSE=1"
+make full TEST_DELTEMP=1 FPCFPMAKE=$PWD/../compiler/ppcx64 TEST_FPC=$PWD/../compiler/ppcrossavr V=1 "TEST_SUBARCH=avr6" "TEST_OPT=$MYTEST_OPTAVR -XPavr-embedded- -Wpavrsim" EMULATOR=~/fp-avrsim/avrsim -j "$@"
