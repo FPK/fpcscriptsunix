@@ -1,0 +1,1 @@
+make FPC=~/fpc/$MYFPC./compiler/z80/pp OPT=@~/bin/fpc.cfg "$@"
