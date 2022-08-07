@@ -14,10 +14,11 @@ else
   RUNMODE=$1
 fi
 
+CROSSOPT="$MYOPTPPC -Xr/usr/$CPU-linux-gnu -XR/usr/powerpc-linux-gnu"
 
 case "$RUNMODE" in
    native) time make all FPC=fpc CPU_TARGET=powerpc OS_TARGET=linux OPT="$MYOPTPPC" OVERRIDEVERSIONCHECK=1 "$@" -j ;;
-   cross)  time make all FPC=fpc NOWPOCYCLE=1 CPU_TARGET=powerpc OS_TARGET=linux BINUTILSPREFIX=powerpc-linux- CROSSOPT="$MYOPTPPC -Xr/usr/powerpc-linux-gnu -XR/usr/powerpc-linux-gnu" OVERRIDEVERSIONCHECK=1 "$@" -j ;;
+   cross)  time make all FPC=fpc NOWPOCYCLE=1 OPT="$OS_HOST_OPT" CPU_TARGET=powerpc OS_TARGET=linux BINUTILSPREFIX=powerpc-linux- CROSSOPT="$CROSSOPT" OVERRIDEVERSIONCHECK=1 "$@" -j ;;
    qemu)   OLD_LD_PREFIX=$QEMU_LD_PREFIX
            OLD_BINUTILSPREFIX=$BINUTILSPREFIX
            export QEMU_LD_PREFIX=/usr/powerpc-linux-gnu
