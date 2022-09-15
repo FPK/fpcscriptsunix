@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+rm -f build-stamp.i8086-msdos
+time make all CPU_TARGET=i8086 OS_TARGET=msdos CROSSOPT="$MYOPT8086 -Wmtiny -vbr" OPT=-"vbr $MYOPTA64" OVERRIDEVERSIONCHECK=1 "$@" -j
