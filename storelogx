@@ -7,11 +7,14 @@ then
 else
   FULLTARGET=$1
 fi
-
+if [ $# -eq 2 ]
+then
+  LOGPOSTFIX=$2
+fi
 a=1
 while [ -f log.$FULLTARGET.$a ] ;
 do
   a=$(expr $a + 1)
 done
 echo Copying to $a
-cplogx $a $FULLTARGET
+cplogx $a $FULLTARGET $LOGPOSTFIX

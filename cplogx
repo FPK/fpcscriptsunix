@@ -11,12 +11,18 @@ then
 else
   FULLTARGET=$2
 fi
+if [ $# -eq 3 ]
+then
+  LOGPOSTFIX=$3
+else
+  LOGPOSTFIX=$FULLTARGET
+fi
 echo Using sequential number $1
-echo Copying to tests/log.$FULLTARGET.$1
-cp output/$FULLTARGET/log log.$FULLTARGET.$1
-echo Copying to tests/longlog.$FULLTARGET.$1
-cp output/$FULLTARGET/longlog longlog.$FULLTARGET.$1
-echo Copying to tests/faillist.$FULLTARGET.$1
-cp output/$FULLTARGET/faillist faillist.$FULLTARGET.$1
+echo Copying to tests/log.$LOGPOSTFIX.$1
+cp output/$FULLTARGET/log log.$LOGPOSTFIX.$1
+echo Copying to tests/longlog.$LOGPOSTFIX.$1
+cp output/$FULLTARGET/longlog longlog.$LOGPOSTFIX.$1
+echo Copying to tests/faillist.$LOGPOSTFIX.$1
+cp output/$FULLTARGET/faillist faillist.$LOGPOSTFIX.$1
 old=$(expr $1 - 1)
-diff faillist.$FULLTARGET.$old faillist.$FULLTARGET.$1
+diff faillist.$LOGPOSTFIX.$old faillist.$LOGPOSTFIX.$1

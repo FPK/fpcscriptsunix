@@ -6,5 +6,5 @@ FPCDIR=$PWD
   $BINDIR/bavr6
   cd tests
   time $BINDIR/tavr6
-  storelogx avr6-embedded
+  storelogx avr-embedded avr6-embedded
 } 2>&1 | tee -a $FPCDIR/btavr6.log
