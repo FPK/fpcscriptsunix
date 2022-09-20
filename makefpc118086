@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+set -e
+make FPC=~/fpc/$MYFPC./compiler/ppcross8086 OPT=@/home/florian/bin/fpc.cfg "$@"
