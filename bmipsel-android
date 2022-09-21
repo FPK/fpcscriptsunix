@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+make clean
+time make all FPC=fpc CPU_TARGET=mipsel OS_TARGET=android CROSSOPT="$MYOPTMIPSEL" BINUTILSPREFIX=mipsel-linux-android- OVERRIDEVERSIONCHECK=1 "$@" -j
