@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+set -e
+BINDIR=$( dirname "${BASH_SOURCE[0]}" )
+FPCDIR=$PWD
+{
+  $BINDIR/bavr5
+  cd tests
+  time $BINDIR/tavr5
+  storelogx avr-embedded
+} 2>&1 | tee -a $FPCDIR/btavr.log
