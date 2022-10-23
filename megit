@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+~/megit/megit $@ 2> /dev/null
