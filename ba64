@@ -17,7 +17,7 @@ fi
 
 if [ $OS_TARGET == "linux" ];
 then
-  CROSSOPT="$MYOPTA64 -Xr/usr/$CPU-linux-gnu -XR/usr/aarch64linux-gnu"
+  CROSSOPT="$MYOPTA64 -Xr/usr/aarch64-linux-gnu -XR/usr/aarch64-linux-gnu"
 fi
 
 if [ $OS_TARGET == "darwin" ];

@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+make CPU_TARGET=arm OS_TARGET=linux clean -j
+time make all FPC=fpc CPU_TARGET=arm OS_TARGET=linux CROSSOPT="$MYOPTARMEL" OPT=-dFPC_ARMEL OVERRIDEVERSIONCHECK=1 "$@" -j
