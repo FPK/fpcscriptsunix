@@ -1,0 +1,2 @@
+#!/bin/bash
+"$MYFPCDIR"/"$MYFPC"compiler/ppcrossavr -Cpavr1 @~/bin/fpc.cfg $@
