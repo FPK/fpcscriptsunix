@@ -1,0 +1,1 @@
+make FPC=~/fpc/$MYFPC/./compiler/avr/pp OPT=@~/bin/fpc.cfg SUBARCH=avr25 "$@"
