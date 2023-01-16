@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+cp output/sparc64-linux/log log.$1
+cp output/sparc64-linux/longlog longlog.$1
+cp output/sparc64-linux/faillist faillist.$1

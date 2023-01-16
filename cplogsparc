@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 cp output/sparc-linux/log log.$1
 cp output/sparc-linux/longlog longlog.$1
 cp output/sparc-linux/faillist faillist.$1
