@@ -1,0 +1,6 @@
+#!/bin/bash
+set -e
+CURRENT_PATH=`pwd`
+export LD_PRELOAD= 
+export QEMU_LD_PREFIX=/usr/mipsel64-linux-gnu
+time make full TEST_DELTEMP=1 FPCDIR=$CURRENT_PATH/.. FPC=fpc TEST_FPC=$CURRENT_PATH/../compiler/ppcmipsel64 TEST_CPU_TARGET=mipsel64 TEST_OS_TARGET=linux TEST_OPT="-XPmipsel64-linux- $MYTEST_OPTMIPSEL -Fd -Foobj/linux/mipsel64 -Xr/usr/mipsel64-linux-gnu -XR/usr/mipsel64-linux-gnu" EMULATOR=qemu-mipsel64 -j 10
