@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+make clean -j
+CPU=`uname -p`
+
+if [ -z "$1" ]
+then
+  if [ $CPU == "loongarch64" ];
+  then
+    RUNMODE=native
+  else
+    RUNMODE=cross
+  fi
+else
+  RUNMODE=$1
+fi
+
+
+case "$RUNMODE" in
+   native) time make all FPC=ppcloongarch64 CPU_TARGET=loongarch64 OS_TARGET=linux OPT="$MYOPTLOONGARCH64" OVERRIDEVERSIONCHECK=1 "$@" -j ;;
+   cross)  time make all FPC=fpc NOWPOCYCLE=1 OPT="$OS_HOST_OPT" CPU_TARGET=loongarch64 OS_TARGET=linux BINUTILSPREFIX=loongarch64-linux- CROSSOPT="$MYOPTLOONGARCH64 -Xr/usr/loongarch64-linux-gnu -XR/usr/loongarch64-linux-gnu" OVERRIDEVERSIONCHECK=1 "$@" -j ;;
+   qemu)   OLD_LD_PREFIX=$QEMU_LD_PREFIX
+           OLD_BINUTILSPREFIX=$BINUTILSPREFIX
+           export QEMU_LD_PREFIX=/usr/loongarch64-linux-gnu
+           export BINUTILSPREFIX=loongarch64-linux-
+
+           time make all FPC=ppcloongarch64 NOWPOCYCLE=1 CPU_TARGET=loongarch64 OS_TARGET=linux BINUTILSPREFIX=loongarch64-linux- OPT="$MYOPTLOONGARCH64 -Xr/usr/loongarch64-linux-gnu -XR/usr/loongarch64-linux-gnu" OVERRIDEVERSIONCHECK=1 "$@" -j
+
+           export BINUTILSPREFIX=$OLD_BINUTILSPREFIX
+           export QEMU_LD_PREFIX=$OLD_QEMU_LD_PREFIX ;;
+esac

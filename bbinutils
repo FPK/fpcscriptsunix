@@ -1,21 +1,25 @@
 #!/bin/bash
 set -e
+if [[ $OSTYPE == 'darwin'* ]]; then
+  # needed for binutils-2.40 it seems
+  EXTRAOPT=--with-gmp=/opt/homebrew
+fi
 find . -name config.cache -exec rm -f {} \; \; 2>/dev/null  || true
 make distclean || true
 if [ -z "$3" ]
 then
   if [ "$2" == "nogdb" ]
   then
-    ./configure --target=$1 --disable-gdb --disable-sim --disable-readline --disable-libdecnumber
+    ./configure --target=$1 --disable-gdb --disable-sim --disable-readline --disable-libdecnumber $EXTRAOPT
   else
-    ./configure --target=$1
+    ./configure --target=$1 $EXTRAOPT
   fi
 else
   if [ "$3" == "nogdb" ]
   then
-    ./configure --target=$1 --program-prefix=$2 --disable-gdb --disable-sim --disable-readline --disable-libdecnumber
+    ./configure --target=$1 --program-prefix=$2 --disable-gdb --disable-sim --disable-readline --disable-libdecnumber $EXTRAOPT
   else
-    ./configure --target=$1 --program-prefix=$2
+    ./configure --target=$1 --program-prefix=$2 $EXTRAOPT
   fi
 fi
 
