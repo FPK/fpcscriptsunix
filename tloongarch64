@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+set -e
+CPU=`uname -p`
+
+if [ -z "$1" ]
+then
+  if [ $CPU == "loongarch64" ];
+  then
+    RUNMODE=native
+  else
+    RUNMODE=cross
+  fi
+else
+  RUNMODE=$1
+fi
+
+export LD_PRELOAD=
+CURRENT_PATH=`pwd`
+
+make distclean -j TEST_FPC=$CURRENT_PATH/../compiler/ppcloongarch64
+
+case "$RUNMODE" in
+   native) time make full FPC=fpc CPU_TARGET=powerpc OS_TARGET=linux OPT="$MYOPTLOONGARCH64" OVERRIDEVERSIONCHECK=1 -j ;;
+   cross)  OLD_LD_PREFIX=$QEMU_LD_PREFIX
+           OLD_BINUTILSPREFIX=$BINUTILSPREFIX
+           export QEMU_LD_PREFIX=/usr/loongarch64-linux-gnu
+           time make full TEST_DELTEMP=1 FPC=fpc FPCDIR=$CURRENT_PATH/.. TEST_FPC=$CURRENT_PATH/../compiler/ppcrossloongarch64 TEST_CPU_TARGET=loongarch64 TEST_OS_TARGET=linux OVERRIDEVERSIONCHECK=1 -j TEST_OPT="-loongarch64-linux- $MYTEST_OPTLOONGARCH64 -Fd -Foobj/linux/loongarch64 -XR/usr/loongarch64-linux-gnu"
+           export QEMU_LD_PREFIX=$OLD_QEMU_LD_PREFIX ;;
+   qemu)   OLD_LD_PREFIX=$QEMU_LD_PREFIX
+           OLD_BINUTILSPREFIX=$BINUTILSPREFIX
+           export QEMU_LD_PREFIX=/usr/loongarch64-linux-gnu
+           export BINUTILSPREFIX=loongarch64-linux-
+
+           time make full TEST_DELTEMP=1 FPCDIR=$CURRENT_PATH/.. FPC=ppcloongarch64 BINUTLSPREFIX=$BINUTILSPREFIX TEST_FPC=$CURRENT_PATH/../compiler/ppcloongarch64 TEST_CPU_TARGET=loongarch64 TEST_OS_TARGET=linux "OPT=-Fu$CURRENT_PATH/../rtl/units/loongarch64-linux -Fu$CURRENT_PATH/../packages/rtl-objpas/units/loongarch64-linux -XP$BINUTILSPREFIX" TEST_OPT="-XP$BINUTILSPREFIX $MYTEST_OPTPPC -Fd -Foobj/linux/loongarch64 -XR/usr/loongarch64-linux-gnu" -j
+           export BINUTILSPREFIX=$OLD_BINUTILSPREFIX
+           export QEMU_LD_PREFIX=$OLD_QEMU_LD_PREFIX ;;
+esac
