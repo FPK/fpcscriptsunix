@@ -1,4 +1,37 @@
-#!/bin/bash
-cd ~/fpc/tests
-make clean all digest TEST_FPC=~/fpc/compiler/ppcarm V=1 TEST_OPT=-O2
- 
+ #!/usr/bin/env bash
+set -e
+CPU=`uname -p`
+
+if [ -z "$1" ]
+then
+  if [ $CPU == "armv7l" ];
+  then
+    RUNMODE=native
+  else
+    RUNMODE=cross
+  fi
+else
+  RUNMODE=$1
+fi
+
+export LD_PRELOAD=
+CURRENT_PATH=`pwd`
+
+make distclean -j TEST_FPC=$CURRENT_PATH/../compiler/ppcarm
+
+case "$RUNMODE" in
+   native) time make full FPC=fpc CPU_TARGET=arm OS_TARGET=linux OPT="$MYOPTARM" OVERRIDEVERSIONCHECK=1 -j ;;
+   cross)  OLD_LD_PREFIX=$QEMU_LD_PREFIX
+           OLD_BINUTILSPREFIX=$BINUTILSPREFIX
+           export QEMU_LD_PREFIX=/usr/arm-linux-gnueabihf
+           time make full TEST_DELTEMP=1 FPC=fpc FPCDIR=$CURRENT_PATH/.. TEST_FPC=$CURRENT_PATH/../compiler/ppcrossarm TEST_CPU_TARGET=arm TEST_OS_TARGET=linux OVERRIDEVERSIONCHECK=1 -j TEST_OPT="-XParm-linux- $MYTEST_OPTARM -Fd -Foobj/linux/arm-gnueabihf -XR/usr/arm-linux-gnueabihf"
+           export QEMU_LD_PREFIX=$OLD_QEMU_LD_PREFIX ;;
+   qemu)   OLD_LD_PREFIX=$QEMU_LD_PREFIX
+           OLD_BINUTILSPREFIX=$BINUTILSPREFIX
+           export QEMU_LD_PREFIX=/usr/arm-linux-gnueabihf
+           export BINUTILSPREFIX=arm-linux-
+
+           time make full TEST_DELTEMP=1 FPCDIR=$CURRENT_PATH/.. FPC=ppcarm BINUTLSPREFIX=$BINUTILSPREFIX TEST_FPC=$CURRENT_PATH/../compiler/ppcarm TEST_CPU_TARGET=arm TEST_OS_TARGET=linux "OPT=-Fu$CURRENT_PATH/../rtl/units/arm-linux -Fu$CURRENT_PATH/../packages/rtl-objpas/units/arm-linux -XP$BINUTILSPREFIX" TEST_OPT="-XP$BINUTILSPREFIX $MYTEST_OPTARM -Fd -Foobj/linux/arm-gnueabihf -XR/usr/arm-linux-gnueabihf" -j
+           export BINUTILSPREFIX=$OLD_BINUTILSPREFIX
+           export QEMU_LD_PREFIX=$OLD_QEMU_LD_PREFIX ;;
+esac

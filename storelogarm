@@ -1,9 +1,2 @@
 #!/usr/bin/env bash
-set -e
-a=1
-while [ -f log.$a ] ;
-do
-  a=$(expr $a + 1)
-done
-echo Copying to $a
-cplogarm $a
+storelogx arm-linux
