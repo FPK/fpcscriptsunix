@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+make distclean -j
+
+CPU=`uname -m`
+OS_HOST=`uname`
+
+CROSSOPT="$MYOPT8086 -Wmsmall"
+
+if [[ $CPU == "aarch64" || $CPU == "arm64" ]];
+then
+  OPT=-"vbr $MYOPTA64 -dFPC_SOFT_FPUX80 "
+else
+  OPT=-"vbr $MYOPTA64"
+fi
+
+if [ $OS_HOST== "Darwin" ];
+then
+  CROSSOPT="$CROSSOPT -XR/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk"
+fi
+
+time make all CPU_TARGET=i8086 OS_TARGET=msdos  CROSSOPT="$CROSSOPT" OPT="$OPT" OVERRIDEVERSIONCHECK=1 "$@" -j
