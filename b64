@@ -2,4 +2,4 @@
 set -e
 
 make distclean NOWPOYCLE=1 "$@" -j
-make all NOWPOCYCLE=1 "$@" -j OPT="-vbr" FPC=ppcx64 OPT="$MYOPTX64" OVERRIDEVERSIONCHECK=1
+make all NOWPOCYCLE=1 -j FPC=ppcx64 OPT="-vbr $OS_HOST_OPT $MYOPTX64" OVERRIDEVERSIONCHECK=1 "$@"
