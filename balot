@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -e
+b64
+b32
+ba64
+barm
+bavr5
+bmsdos
