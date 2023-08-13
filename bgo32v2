@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 rm -f build-stamp.i386-go32v2
-time make all CPU_TARGET=i386 OS_TARGET=go32v2 CROSSOPT="$MYOPT386 -Cfx87 -Cppentium" OVERRIDEVERSIONCHECK=1 "$@" -j
+time make all CPU_TARGET=i386 OS_TARGET=go32v2 CROSSOPT="$MYOPT386 -Cfx87 -Cppentium" BINUTILSPREFIX=i386-pc-msdosdjgpp- OVERRIDEVERSIONCHECK=1 "$@" -j
