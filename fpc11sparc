@@ -1,2 +1,7 @@
 #!/bin/bash
-~/fpc/"$MYFPC"compiler/ppcsparc @~/bin/fpc.cfg $@
+if [ -f ~/fpc/"$MYFPC"compiler/ppcrosssparc ]; then
+    ~/fpc/"$MYFPC"compiler/ppcrosssparc @~/bin/fpc.cfg $@
+else
+    ~/fpc/"$MYFPC"compiler/ppcsparc @~/bin/fpc.cfg $@
+    
+fi

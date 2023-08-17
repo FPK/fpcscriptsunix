@@ -1,2 +1,6 @@
 #!/bin/bash
-~/fpc/"$MYFPC"compiler/ppcppc @~/bin/fpc.cfg "-XP\$FPCTARGET-" $@
+if [ -f ~/fpc/"$MYFPC"compiler/ppcrosppc ]; then
+    ~/fpc/"$MYFPC"compiler/ppcrossppc @~/bin/fpc.cfg $@
+else
+    ~/fpc/"$MYFPC"compiler/ppcppc @~/bin/fpc.cfg "-XP\$FPCTARGET-" $@    
+fi
