@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+set -e
+
 make distclean -j
 CPU=`uname -m`
 OS_TARGET=`fpc -iTO`
