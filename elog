@@ -16,4 +16,4 @@ else
   a=$1
 fi
 
-e $TESTSPATH/longlog.$FULLTARGET.$a
+e $TESTSPATH/faillist.$FULLTARGET.$a $TESTSPATH/log.$FULLTARGET.$a $TESTSPATH/longlog.$FULLTARGET.$a
