@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 set -e
-FULLTARGET=`fpc -iTP`-`fpc -iTO`
+FULLTARGET=i386-`fpc -iTO`
 
 TESTSPATH=$MYFPCDIR/$MYFPC/tests/
 
