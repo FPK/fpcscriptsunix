@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+make distclean OS_TARGET=freebsd CPU_TARGET=x86_64 NOWPOCYCLE=1 "$@" -j
+make all OS_TARGET=freebsd CPU_TARGET=x86_64 NOWPOCYCLE=1 "$@" -j OPT="$OS_HOST_OPT" OPTNEW="$MYOPTX64"
