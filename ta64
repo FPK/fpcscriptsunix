@@ -43,11 +43,11 @@ fi
 make distclean -j TEST_FPC=$CURRENT_PATH/../compiler/ppca64
 
 case "$RUNMODE" in
-   native) time make full TEST_DELTEMP=1 FPCDIR=$CURRENT_PATH/.. FPC=$CURRENT_PATH/../compiler/ppca64 TEST_FPC=$CURRENT_PATH/../compiler/ppca64 TEST_CPU_TARGET=$CPU TEST_OS_TARGET=$OS_TARGET V=1 "OPT=-Fu$CURRENT_PATH/../rtl/units/$CPU-$OS_TARGET -Fu$CURRENT_PATH/../packages/rtl-objpas/units/$CPU-$OS_TARGET" TEST_OPT="$TEST_OPT" -j $CPU_CORES ;;
+   native) time make full TEST_DELTEMP=1 FPCDIR=$CURRENT_PATH/.. FPC=$CURRENT_PATH/../compiler/ppca64 TEST_FPC=$CURRENT_PATH/../compiler/ppca64 TEST_CPU_TARGET=$CPU TEST_OS_TARGET=$OS_TARGET V=1 "OPT=-Fu$CURRENT_PATH/../rtl/units/$CPU-$OS_TARGET -Fu$CURRENT_PATH/../packages/fcl-process/units/$CPU-$OS_TARGET -Fu$CURRENT_PATH/../packages/rtl-objpas/units/$CPU-$OS_TARGET" TEST_OPT="$TEST_OPT" -j $CPU_CORES ;;
    cross)  time make full TEST_DELTEMP=1  FPC=fpc NOWPOCYCLE=1 CPU_TARGET=$CPU OS_TARGET=linux BINUTILSPREFIX=$CPU-$OS_TARGET- CROSSOPT="$CROSSOPT" OVERRIDEVERSIONCHECK=1 -j ;;
    qemu)   OLD_LD_PREFIX=$QEMU_LD_PREFIX
            export QEMU_LD_PREFIX=/usr/$CPU-linux-gnu
 
-           time make full TEST_DELTEMP=1 FPCDIR=$CURRENT_PATH/.. FPC=$CURRENT_PATH/../compiler/ppca64 TEST_FPC=$CURRENT_PATH/../compiler/ppca64 TEST_CPU_TARGET=$CPU TEST_OS_TARGET=linux V=1 "OPT=-Fu$CURRENT_PATH/../rtl/units/$CPU-linux -Fu$CURRENT_PATH/../packages/rtl-objpas/units/$CPU-linux -XP$CPU-linux-" TEST_OPT="-XP$CPU-linux- $MYTEST_OPTA64 -Foobj/linux/$CPU -Fl/usr/$CPU-linux-gnu/lib/" EMULATOR=qemu-$CPU TEST_VERBOSE=1 BINUTILSPREFIX=$CPU-linux- -j
+           time make full TEST_DELTEMP=1 FPCDIR=$CURRENT_PATH/.. FPC=$CURRENT_PATH/../compiler/ppca64 TEST_FPC=$CURRENT_PATH/../compiler/ppca64 TEST_CPU_TARGET=$CPU TEST_OS_TARGET=linux V=1 "OPT=-Fu$CURRENT_PATH/../rtl/units/$CPU-linux -Fu$CURRENT_PATH/../packages/fcl-process/units/$CPU-$OS_TARGET -Fu$CURRENT_PATH/../packages/rtl-objpas/units/$CPU-linux -XP$CPU-linux-" TEST_OPT="-XP$CPU-linux- $MYTEST_OPTA64 -Foobj/linux/$CPU -Fl/usr/$CPU-linux-gnu/lib/" EMULATOR=qemu-$CPU TEST_VERBOSE=1 BINUTILSPREFIX=$CPU-linux- -j
            export QEMU_LD_PREFIX=$OLD_QEMU_LD_PREFIX ;;
 esac
