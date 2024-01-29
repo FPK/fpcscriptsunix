@@ -12,7 +12,6 @@ bbinutils sparc64-linux
 bbinutils x86_64-mingw64 x86_64-win64-
 bbinutils x86_64-darwin
 bbinutils m68k-linux m68k-linux-gnu-
-bbinutils arm-wince
 bbinutils riscv32-linux
 bbinutils riscv64-linux
 bbinutils x86_64-openbsd nogdb
@@ -23,11 +22,9 @@ bbinutils i386-mingw32 i386-win32- nogdb
 bbinutils riscv32 riscv32-embedded- nogdb
 bbinutils xtensa-linux nogdb
 bbinutils powerpc64le-linux
-bbinutils aarch64-linux
 bbinutils mipsel mipsel-embedded- nogdb
 bbinutils powerpc64-linux
 bbinutils mips64el-linux gdb
 bbinutils loongarch64-linux nogdb
 bbinutils arm-mingw32ce arm-wince- nogdb
 bbinutils x86_64-freebsd nogdb
-
