@@ -13,4 +13,4 @@ if [ -z "$SUBARCH" ]
 then
   SUBARCH=avr5
 fi
-time make all OVERRIDEVERSIONCHECK=1 "$@" -j "OPTNEW=$MYOPTAVR -vbr" OPT="$OPT $OS_HOST_OPT" "OS_TARGET=embedded" "CPU_TARGET=avr" "SUBARCH=$SUBARCH"
+time make all OVERRIDEVERSIONCHECK=1 "OPTNEW=$MYOPTAVR -vbr" OPT="$OPT $OS_HOST_OPT" "OS_TARGET=embedded" "CPU_TARGET=avr" "SUBARCH=$SUBARCH" "$@" -j
