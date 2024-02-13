@@ -1,0 +1,9 @@
+#!/bin/bash
+# we ignore errors as the branch might not be pushed everywhere
+echo Going to delete branch $1
+echo ---------------- $PERSONAL_REMOTE ----------------
+git push $PERSONAL_REMOTE --delete $1
+echo ---------------- $GITLAB_REMOTE ----------------
+git push $GITLAB_REMOTE --delete $1
+echo ---------------- local ----------------
+git branch -D $1
