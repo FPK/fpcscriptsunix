@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+kdiff3 "$MYFPCDIR"/"$MYFPC"rtl/units.1 "$MYFPCDIR"/"$MYFPC"rtl/units.2 2> /dev/null &
