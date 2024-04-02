@@ -1,2 +1,2 @@
 #!/bin/bash
-~/fpc/$MYFPC./compiler/i8086/pp @~/bin/fpc.cfg $@
+~/fpc/$MYFPC./compiler/i8086/pp @~/bin/fpc.cfg $MYOPT8086 $@
