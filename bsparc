@@ -21,10 +21,11 @@ case "$RUNMODE" in
    cross)  time make all FPC=fpc NOWPOCYCLE=1 CPU_TARGET="$FPCCPU" OS_TARGET=linux BINUTILSPREFIX="$FPCCPU-linux-" CROSSOPT="$MYOPTSPARC -Xr/usr/$(FPCCPU)-linux-gnu -XR/usr/$(FPCCPU)-linux-gnu" OVERRIDEVERSIONCHECK=1 "$@" -j ;;
    qemu)   OLD_LD_PREFIX=$QEMU_LD_PREFIX
            if test -d /usr/$FPCCPU-linux-gnu; then
-             export QEMU_LD_PREFIX="/usr/$FPCCPU-linux-gnu"
+             ROOT_PREFIX="/usr/$FPCCPU-linux-gnu"
            else
-             export QEMU_LD_PREFIX="/usr/sparc64-linux-gnu"
+             ROOT_PREFIX="/usr/sparc64-linux-gnu"
            fi
-           time make all FPC=ppcsparc NOWPOCYCLE=1 CPU_TARGET="$FPCCPU" OS_TARGET=linux BINUTILSPREFIX="$FPCCPU-linux-" OPT="$MYOPTSPARC -Xr/usr/$FPCCPU-linux-gnu -XR/usr/$FPCCPU-linux-gnu" OVERRIDEVERSIONCHECK=1 "$@" -j
+           export QEMU_LD_PREFIX=$ROOT_PREFIX
+           time make all FPC=ppcsparc NOWPOCYCLE=1 CPU_TARGET="$FPCCPU" OS_TARGET=linux BINUTILSPREFIX="$FPCCPU-linux-" OPT="$MYOPTSPARC -Xr$ROOT_PREFIX-XR/$ROOT_PREFIX" OVERRIDEVERSIONCHECK=1 "$@" -j
            export QEMU_LD_PREFIX="$OLD_QEMU_LD_PREFIX" ;;
 esac
