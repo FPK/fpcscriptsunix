@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+make distclean CPU_TARGET=arm OS_TARGET=linux NOWPOCYCLE=1 "$@" -j LLVM=1
+make all CPU_TARGET=arm OS_TARGET=linux NOWPOCYCLE=1 "$@" -j CROSSOPT="$MYOPTARM" OPTNEW="-Clv16.0" OVERRIDEVERSIONCHECK=1 LLVM=1

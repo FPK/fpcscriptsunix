@@ -1,0 +1,8 @@
+#!/bin/bash
+CROSSFPC=~/fpc/"$MYFPC"compiler/ppcrossarmllvm
+if [ -f $CROSSFPC ]; then
+    $CROSSFPC @~/bin/fpc.cfg $@
+else
+    ~/fpc/"$MYFPC"compiler/ppcarmllvm @~/bin/fpc.cfg $@
+fi
+
