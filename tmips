@@ -1,0 +1,6 @@
+#!/bin/bash
+set -e
+CURRENT_PATH=`pwd`
+export LD_PRELOAD=
+export QEMU_LD_PREFIX=/usr/mips-linux-gnu
+time make full TEST_DELTEMP=1 FPCDIR=$CURRENT_PATH/.. FPC=fpc TEST_FPC=$CURRENT_PATH/../compiler/ppcmips TEST_CPU_TARGET=mips TEST_OS_TARGET=linux TEST_OPT="-XPmips-linux- $MYTEST_OPTMIPS -Fd -Foobj/linux/mips -Xr/usr/mips-linux-gnu -XR/usr/mips-linux-gnu" EMULATOR=qemu-mips -j 10
