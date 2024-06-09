@@ -15,7 +15,7 @@ do
     git checkout main
     git pull
     cd ..
-    git commit -a -m "* updated"
+    git commit -a -m "* updated $branch"
     git push
 done
 git checkout main
