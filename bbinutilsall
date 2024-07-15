@@ -30,3 +30,4 @@ bbinutils loongarch64-linux nogdb
 bbinutils arm-mingw32ce arm-wince- nogdb
 bbinutils x86_64-freebsd nogdb
 bbinutils mips-linux nogdb
+bbinutils powerpc64-linux nogdb
