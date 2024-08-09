@@ -19,7 +19,7 @@ fi
 
 case "$RUNMODE" in
    native) time make all FPC=fpc CPU_TARGET=riscv64 OS_TARGET=linux OPT="$MYOPTRV64" OVERRIDEVERSIONCHECK=1 "$@" -j ;;
-   cross) time make all FPC=fpc CPU_TARGET=riscv64 OS_TARGET=linux CROSSOPT="$MYOPTRV64 -Xr/usr/riscv64-linux-gnu -XR/usr/riscv64-linux-gnu -al -O-" OVERRIDEVERSIONCHECK=1 "$@" -j ;;
+   cross) time make all FPC=fpc CPU_TARGET=riscv64 OS_TARGET=linux CROSSOPT="$MYOPTRV64 -Xr/usr/riscv64-linux-gnu -XR/usr/riscv64-linux-gnu -al" OVERRIDEVERSIONCHECK=1 "$@" -j ;;
    qemu)   OLD_LD_PREFIX=$QEMU_LD_PREFIX
            export QEMU_LD_PREFIX=/usr/riscv64-linux-gnu
            time make all FPC=~/ppcrv64 NOWPOCYCLE=1 CPU_TARGET=riscv64 OS_TARGET=linux BINUTILSPREFIX=riscv64-linux- OPT="$MYOPTPPC -Xr/usr/riscv64-linux-gnu -XR/usr/riscv64-linux-gnu" OVERRIDEVERSIONCHECK=1 "$@" -j

@@ -1,1 +1,7 @@
-make FPC=~/fpc/"$MYFPC"compiler/ppcrv64 OPT=@/home/florian/bin/fpc.cfg "$@" BINUTILSPREFIX=riscv64-linux- -j
+if [ -f ~/fpc/"$MYFPC"compiler/ppcrossrv64 ]; then
+    FPC=~/fpc/"$MYFPC"compiler/ppcrossrv64
+else
+    FPC=~/fpc/"$MYFPC"compiler/ppcrv64
+fi
+
+make FPC=$FPC OPT=@/home/florian/bin/fpc.cfg "$@" BINUTILSPREFIX=riscv64-linux- -j
