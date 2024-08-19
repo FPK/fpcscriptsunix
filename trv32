@@ -1,7 +1,37 @@
 #!/bin/bash
 set -e
+CPU=`uname -p`
+
+if [ -z "$1" ]
+then
+  if [ $CPU == "riscv32" ];
+  then
+    RUNMODE=native
+  else
+    RUNMODE=cross
+  fi
+else
+  RUNMODE=$1
+fi
+
 CURRENT_PATH=`pwd`
 export LD_PRELOAD=
-# export QEMU_LD_PREFIX=/usr/riscv64-linux-gnu
-LIBGCCPATH=$(dirname `riscv64-linux-gnu-gcc -print-libgcc-file-name`)
-time make full TEST_DELTEMP=1 FPCDIR=$CURRENT_PATH/.. FPC=fpc TEST_FPC=$CURRENT_PATH/../compiler/ppcrossrv32 TEST_CPU_TARGET=riscv32 TEST_OS_TARGET=linux V=1 TEST_OPT="$MYTEST_OPTRV32 -XPriscv32-linux- -XR/usr/riscv32-linux-gnu -Fl$LIBGCCPATH" EMULATOR=qemu-riscv32 $@ -j 6
+
+
+case "$RUNMODE" in
+   native) time make full FPC=fpc CPU_TARGET=riscv32 OS_TARGET=linux OPT="$MYOPTRV32" OVERRIDEVERSIONCHECK=1 -j ;;
+   cross)  OLD_LD_PREFIX=$QEMU_LD_PREFIX
+           OLD_BINUTILSPREFIX=$BINUTILSPREFIX
+           export QEMU_LD_PREFIX=/usr/riscv32-linux-gnu
+           # LIBGCCPATH=$(dirname `riscv32-linux-gnu-gcc -print-libgcc-file-name`)
+           time make full TEST_DELTEMP=1 FPCDIR=$CURRENT_PATH/.. FPC=fpc TEST_FPC=$CURRENT_PATH/../compiler/ppcrossrv32 TEST_CPU_TARGET=riscv32 TEST_OS_TARGET=linux V=1 TEST_OPT="$MYTEST_OPTRV32 -XPriscv32-linux- -XR/usr/riscv32-linux-gnu -Fl$LIBGCCPATH" EMULATOR=qemu-riscv32 $@ -j 6
+           export QEMU_LD_PREFIX=$OLD_QEMU_LD_PREFIX ;;
+   qemu)   OLD_LD_PREFIX=$QEMU_LD_PREFIX
+           OLD_BINUTILSPREFIX=$BINUTILSPREFIX
+#           export QEMU_LD_PREFIX=/usr/riscv32-linux-gnu
+#           export BINUTILSPREFIX=arm-linux-
+
+#           time make full TEST_DELTEMP=1 FPCDIR=$CURRENT_PATH/.. FPC=ppcarm BINUTLSPREFIX=$BINUTILSPREFIX TEST_FPC=$CURRENT_PATH/../compiler/ppcarm TEST_CPU_TARGET=arm TEST_OS_TARGET=linux "OPT=-Fu$CURRENT_PATH/../rtl/units/arm-linux -Fu$CURRENT_PATH/../packages/rtl-objpas/units/arm-linux -XP$BINUTILSPREFIX" TEST_OPT="-XP$BINUTILSPREFIX $MYTEST_OPTARM -Fd -Foobj/linux/arm-gnueabihf -XR/usr/arm-linux-gnueabihf" -j
+           export BINUTILSPREFIX=$OLD_BINUTILSPREFIX
+           export QEMU_LD_PREFIX=$OLD_QEMU_LD_PREFIX ;;
+esac
