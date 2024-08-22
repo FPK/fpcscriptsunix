@@ -1,0 +1,7 @@
+if [ -f ~/fpc/"$MYFPC"compiler/ppcrossrv32 ]; then
+    FPC=~/fpc/"$MYFPC"compiler/ppcrossrv32
+else
+    FPC=~/fpc/"$MYFPC"compiler/ppcrv32
+fi
+
+make FPC=$FPC OPT=@/home/florian/bin/fpc.cfg "$@" BINUTILSPREFIX=riscv32-linux- -j
