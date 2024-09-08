@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+if [ -f ~/fpc/"$MYFPC"compiler/ppcrosssparc64 ]; then
+    FPC=~/fpc/"$MYFPC"compiler/ppcrosssparc64
+else
+    FPC=~/fpc/"$MYFPC"compiler/ppcsparc64
+fi
+
+make FPC=$FPC OPT=@/home/florian/bin/fpc.cfg "$@"
