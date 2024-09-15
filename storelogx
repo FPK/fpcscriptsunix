@@ -10,9 +10,11 @@ fi
 if [ $# -eq 2 ]
 then
   LOGPOSTFIX=$2
+else
+  LOGPOSTFIX=$FULLTARGET
 fi
 a=1
-while [ -f log.$FULLTARGET.$a ] ;
+while [ -f log.$LOGPOSTFIX.$a ] ;
 do
   a=$(expr $a + 1)
 done
