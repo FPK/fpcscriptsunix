@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -e
+set -x
+BINDIR=$( dirname "${BASH_SOURCE[0]}" )
+FPCDIR=$PWD
+{
+    $BINDIR/bsparc
+    cd tests
+    time $BINDIR/tsparc
+    storelogx sparc-linux
+} 2>&1 | tee -a $FPCDIR/btsparc.log
