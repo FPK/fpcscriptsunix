@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+make clean -j
+CPU=`uname -p`
+
+if [ -z "$1" ]
+then
+  if [ $CPU == "mipsel" ];
+  then
+    RUNMODE=native
+  else
+    RUNMODE=cross
+  fi
+else
+  RUNMODE=$1
+fi
+
+case "$RUNMODE" in
+   native) time make all FPC=fpc CPU_TARGET=mipsel OS_TARGET=ps1 OPT="$MYOPTMIPSEL" OVERRIDEVERSIONCHECK=1 "$@" -j ;;
+#   cross)  time make all FPC=fpc NOWPOCYCLE=1 CPU_TARGET=mipsel OS_TARGET=ps1 BINUTILSPREFIX=mipsel-ps1- CROSSOPT="$MYOPTMIPSEL -Xr/usr/mipsel-ps1-gnu -XR/usr/mipsel-ps1-gnu" OVERRIDEVERSIONCHECK=1 "$@" -j ;;
+   cross)  time make all FPC=fpc NOWPOCYCLE=1 CPU_TARGET=mipsel OS_TARGET=ps1 BINUTILSPREFIX=mipsel-ps1- OPT="$OS_HOST_OPT" CROSSOPT="$MYOPTMIPSEL" OVERRIDEVERSIONCHECK=1 "$@" -j ;;
+   qemu)   OLD_LD_PREFIX=$QEMU_LD_PREFIX
+           export QEMU_LD_PREFIX=/usr/mipsel-ps1~-gnu
+           time make all FPC=ppcmipsel NOWPOCYCLE=1 CPU_TARGET=mipsel OS_TARGET=ps1 BINUTILSPREFIX=mipsel-ps1- OPT="$MYOPTMIPSEL -Xr/usr/mipsel-ps1-gnu -XR/usr/mipsel-ps1-gnu" OVERRIDEVERSIONCHECK=1 "$@" -j
+           export QEMU_LD_PREFIX=$OLD_QEMU_LD_PREFIX ;;
+esac
