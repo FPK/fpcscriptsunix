@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+cp output/mipsel-linux/log log.$1
+cp output/mipsel-linux/longlog longlog.$1
+cp output/mipsel-linux/faillist faillist.$1
