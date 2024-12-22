@@ -13,10 +13,7 @@ then
 else
   LOGPOSTFIX=$FULLTARGET
 fi
-a=1
-while [ -f log.$LOGPOSTFIX.$a ] ;
-do
-  a=$(expr $a + 1)
-done
+a=`ls log.$LOGPOSTFIX.* | egrep -o "[0-9]+$" | awk '{if ($1 > max) max=$1} END {print max}'`
+a=$(expr $a + 1)
 echo Copying to $a
 cplogx $a $FULLTARGET $LOGPOSTFIX
