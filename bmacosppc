@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+rm -f build-stamp.powerpc-macos
+time make all CPU_TARGET=powerpc OS_TARGET=macos CROSSOPT="$MYOPTPPC -vbr" OPT=-"vbr" OVERRIDEVERSIONCHECK=1 "$@" -j

@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -e
+
+BINDIR=$( dirname "${BASH_SOURCE[0]}" )
+FPCDIR=$PWD
+{
+	$BINDIR/barm
+	cd tests
+	time $BINDIR/tarm
+    $BINDIR/storelogarm
+} 2>&1 | tee -a $FPCDIR/btarm.log
