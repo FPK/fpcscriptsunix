@@ -15,3 +15,4 @@ CROSSOPT="$MYOPTA64 -XR/Applications/Xcode.app/Contents/Developer/Platforms/iPho
 case "$RUNMODE" in
    cross)  time make all NOWPOCYCLE=1 FPC=fpc CPU_TARGET=aarch64 OS_TARGET=$OS_TARGET CROSSOPT="$CROSSOPT" OVERRIDEVERSIONCHECK=1 "$@" -j ;;
 esac
+ƒ
