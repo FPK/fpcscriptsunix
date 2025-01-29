@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+set -e
+FULLTARGET=aarch64-`fpc -iTO`
+
+TESTSPATH=$MYFPCDIR/$MYFPC/tests/
+
+if [ -z "$1" ]
+then
+  a=1
+  while [ -f $TESTSPATH/log.$FULLTARGET.$a ] ;
+  do
+    a=$(expr $a + 1)
+  done
+  a=$(expr $a - 1)
+else
+  a=$1
+fi
+
+e $TESTSPATH/longlog.$FULLTARGET.$a $TESTSPATH/faillist.$FULLTARGET.$a $TESTSPATH/log.$FULLTARGET.$a
