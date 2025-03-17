@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
 # MYOPTA64 and MYTEST_OPTA64 should be set
 set -e
+export LD_PRELOAD=
+CURRENT_PATH=`pwd`
 CPU=`uname -m`
+TEST_CPU=aarch64
 OS_TARGET=`fpc -iTO`
 
 if [ -z "$1" ]
@@ -10,15 +13,15 @@ then
   then
     RUNMODE=native
     CPU=aarch64
+    TEST_FPC=$CURRENT_PATH/../compiler/ppca64
   else
     RUNMODE=cross
+    TEST_FPC=$CURRENT_PATH/../compiler/ppcrossa64
   fi
 else
   RUNMODE=$1
 fi
 
-export LD_PRELOAD=
-CURRENT_PATH=`pwd`
 if ! command -v nproc &> /dev/null
 then
   CPU_CORES=8
@@ -28,8 +31,9 @@ fi
 
 if [ $OS_TARGET == "linux" ];
 then
-  CROSSOPT="$MYOPTA64 -Xr/usr/$CPU-linux-gnu -XR/usr/aarch64linux-gnu"
-  TEST_OPT="$MYTEST_OPTA64 -Fd -Foobj/$OS_TARGET/$CPU -Fl/usr/$CPU-linux-gnu/lib/"
+  GNU_PREFIX="$TEST_CPU-linux-gnu"
+  # CROSSOPT="$MYOPTA64 -Xr/usr/$TEST_CPU-linux-gnu -XR/usr/$TEST_CPU-linux-gnu"
+  # TEST_OPT="$MYTEST_OPTA64 -Fd -Foobj/$OS_TARGET/$TEST_CPU -Fl/usr/$TEST_CPU-linux-gnu/lib/"
 fi
 
 if [ $OS_TARGET == "darwin" ];
@@ -40,13 +44,18 @@ then
   TEST_OPT="-XR/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -Foobj/$OS_TARGET/$CPU"
 fi
 
-make distclean -j TEST_FPC=$CURRENT_PATH/../compiler/ppca64
+make distclean -j TEST_FPC=$TEST_FPC
 
 case "$RUNMODE" in
-   native) time make full TEST_DELTEMP=1 FPCDIR=$CURRENT_PATH/.. FPC=$CURRENT_PATH/../compiler/ppca64 TEST_FPC=$CURRENT_PATH/../compiler/ppca64 TEST_CPU_TARGET=$CPU TEST_OS_TARGET=$OS_TARGET V=1 "OPT=-Fu$CURRENT_PATH/../rtl/units/$CPU-$OS_TARGET -Fu$CURRENT_PATH/../packages/fcl-process/units/$CPU-$OS_TARGET -Fu$CURRENT_PATH/../packages/rtl-objpas/units/$CPU-$OS_TARGET" TEST_OPT="$TEST_OPT" -j $CPU_CORES ;;
-   cross)  time make full TEST_DELTEMP=1  FPC=fpc NOWPOCYCLE=1 CPU_TARGET=$CPU OS_TARGET=linux BINUTILSPREFIX=$CPU-$OS_TARGET- CROSSOPT="$CROSSOPT" OVERRIDEVERSIONCHECK=1 -j ;;
+   native) time make full TEST_DELTEMP=1 FPCDIR=$CURRENT_PATH/.. FPC=$CURRENT_PATH/../compiler/ppca64 TEST_FPC=$CURRENT_PATH/../compiler/ppca64 TEST_CPU_TARGET=$TEST_CPU TEST_OS_TARGET=$OS_TARGET V=1 "OPT=-Fu$CURRENT_PATH/../rtl/units/$CPU-$OS_TARGET -Fu$CURRENT_PATH/../packages/fcl-process/units/$CPU-$OS_TARGET -Fu$CURRENT_PATH/../packages/rtl-objpas/units/$CPU-$OS_TARGET" TEST_OPT="$TEST_OPT" -j $CPU_CORES ;;
+   cross)  OLD_LD_PREFIX=$QEMU_LD_PREFIX
+           OLD_BINUTILSPREFIX=$BINUTILSPREFIX
+           export QEMU_LD_PREFIX=/usr/$GNU_PREFIX
+           LIBGCCPATH=$(dirname `$GNU_PREFIX-gcc -print-libgcc-file-name`)
+           time make full TEST_DELTEMP=1 FPCDIR=$CURRENT_PATH/.. FPC=fpc TEST_FPC=$CURRENT_PATH/../compiler/ppcrossa64 TEST_CPU_TARGET="$TEST_CPU" TEST_OS_TARGET=linux V=1 TEST_OPT="$MYTEST_OPTA64 -XP$TEST_CPU-linux- -XR/usr/$GNU_PREFIX-gnu -Fl$LIBGCCPATH" EMULATOR="qemu-$TEST_CPU" $@ -j
+           export QEMU_LD_PREFIX=$OLD_QEMU_LD_PREFIX ;;
    qemu)   OLD_LD_PREFIX=$QEMU_LD_PREFIX
-           export QEMU_LD_PREFIX=/usr/$CPU-linux-gnu
+           export QEMU_LD_PREFIX=/usr/"$TEST_CPU-linux-gnu"
 
            time make full TEST_DELTEMP=1 FPCDIR=$CURRENT_PATH/.. FPC=$CURRENT_PATH/../compiler/ppca64 TEST_FPC=$CURRENT_PATH/../compiler/ppca64 TEST_CPU_TARGET=$CPU TEST_OS_TARGET=linux V=1 "OPT=-Fu$CURRENT_PATH/../rtl/units/$CPU-linux -Fu$CURRENT_PATH/../packages/fcl-process/units/$CPU-$OS_TARGET -Fu$CURRENT_PATH/../packages/rtl-objpas/units/$CPU-linux -XP$CPU-linux-" TEST_OPT="-XP$CPU-linux- $MYTEST_OPTA64 -Foobj/linux/$CPU -Fl/usr/$CPU-linux-gnu/lib/" EMULATOR=qemu-$CPU TEST_VERBOSE=1 BINUTILSPREFIX=$CPU-linux- -j
            export QEMU_LD_PREFIX=$OLD_QEMU_LD_PREFIX ;;
