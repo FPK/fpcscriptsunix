@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+set -e
+FULLTARGET=avr5-embedded
+
+TESTSPATH=$MYFPCDIR/$MYFPC/tests/
+
+if [ -z "$1" ]
+then
+  a=1
+  while [ -f $TESTSPATH/log.$FULLTARGET.$a ] ;
+  do
+    a=$(expr $a + 1)
+  done
+  a=$(expr $a - 1)
+else
+  a=$1
+fi
+
+echo $TESTSPATH/faillist.$FULLTARGET.$a
+
+e $TESTSPATH/faillist.$FULLTARGET.$a $TESTSPATH/log.$FULLTARGET.$a $TESTSPATH/longlog.$FULLTARGET.$a
