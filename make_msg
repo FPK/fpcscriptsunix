@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 cwd=$(pwd)
 cd "$MYFPCDIR"/"$MYFPC"compiler
-make msg
+make msg -j
 cd "$cwd"
