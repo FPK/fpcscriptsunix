@@ -31,3 +31,4 @@ bbinutils arm-mingw32ce arm-wince- nogdb
 bbinutils x86_64-freebsd nogdb
 bbinutils mips-linux nogdb
 bbinutils powerpc64-linux nogdb
+bbinutils riscv64 riscv64-embedded- nogdb
