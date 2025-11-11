@@ -1,1 +1,1 @@
-make FPC=~/fpc/$MYFPC/./compiler/ppcrossavr OPT=@~/bin/fpc.cfg SUBARCH=avr51 "$@"
+make FPC=~/fpc/$MYFPC/./compiler/ppcrossavr OPT=@~/bin/fpc.cfg SUBARCH=avr21 "$@"
