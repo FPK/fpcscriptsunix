@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+make FPC=~/fpc/"$MYFPC"compiler/ppcrossavr OPT=@/home/florian/bin/fpc.cfg "$@" SUBARCH=avrxmega3
