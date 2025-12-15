@@ -24,5 +24,4 @@ echo Copying to tests/longlog.$LOGPOSTFIX.$1
 cp output/$FULLTARGET/longlog longlog.$LOGPOSTFIX.$1
 echo Copying to tests/faillist.$LOGPOSTFIX.$1
 cp output/$FULLTARGET/faillist faillist.$LOGPOSTFIX.$1
-old=$(expr $1 - 1)
-diff faillist.$LOGPOSTFIX.$old faillist.$LOGPOSTFIX.$1
+difflogx $1 $LOGPOSTFIX

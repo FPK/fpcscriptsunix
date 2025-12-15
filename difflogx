@@ -1,0 +1,32 @@
+#!/bin/bash
+set -e
+
+cd $MYFPCDIR/$MYFPC/tests
+
+if [[ $1 =~ ^[0-9]+$ ]]; then
+  LOGNUMBER=$1
+  shift
+fi
+if [ -z "$1" ]
+then
+  echo Missing target
+  exit 1
+else
+  FULLTARGET=$1
+  shift
+fi
+
+if [ -z "$1" ]
+then
+  LOGPOSTFIX=$FULLTARGET
+else
+  LOGPOSTFIX=$1
+fi
+
+if [ -z "$LOGNUMBER" ]
+then
+  LOGNUMBER=`ls log.$LOGPOSTFIX.* | egrep -o "[0-9]+$" | awk '{if ($1 > max) max=$1} END {print max}'`
+fi
+last=$(expr $LOGNUMBER - 1)
+echo Diffing $last to $LOGNUMBER for $LOGPOSTFIX
+diff faillist.$LOGPOSTFIX.$last faillist.$LOGPOSTFIX.$LOGNUMBER

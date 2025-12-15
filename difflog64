@@ -1,0 +1,4 @@
+#!/bin/bash
+set -e
+
+difflogx $1 x86_64-linux
