@@ -1,0 +1,4 @@
+#!/bin/bash
+set -e
+
+difflogx $1 i386-linux
