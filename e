@@ -5,12 +5,12 @@ then
   then
     code .
   else
-    code -g $@
+    code -g "$@"
   fi
 elif command -v kate &> /dev/null
 then
-  kate $@ 2> /dev/null &
+  kate "$@" 2> /dev/null &
 elif command -v joe &> /dev/null
 then
-  joe $@
+  joe "$@"
 fi
