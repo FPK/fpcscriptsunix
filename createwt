@@ -1,0 +1,8 @@
+#!/bin/sh
+set -e
+echo export MYFPC=git/$1/ > fpc$1
+echo "cd ~/fpc/\$MYFPC" >> fpc$1
+chmod 755 fpc$1
+cd fpc/git/fpc
+git worktree add ../$1
+cd ../../..
