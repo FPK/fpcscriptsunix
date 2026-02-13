@@ -1,0 +1,22 @@
+
+{
+  "permissions": {
+    "allow": [
+      "Bash(1)",
+      "Bash(echo:*)",
+      "Bash(done:*)",
+      "Bash(fi)",
+      "Bash(strip:*)",
+      "Bash(cmp:*)",
+      "Bash(dd:*)",
+      "Bash(tee:*)",
+      "Bash(grep:*)",
+      "Bash(make:*)",
+      "Bash(ls:*)",
+      "Bash(fpc:*)",
+      "Bash(ppcx64:*)",
+      "Bash(fpc:*)",
+      "Bash(git stash:*)"
+    ]
+  }
+}

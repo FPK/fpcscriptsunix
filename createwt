@@ -1,8 +1,14 @@
-#!/bin/sh
+#!/usr/bin/env bash
 set -e
+cd $HOME
 echo export MYFPC=git/$1/ > fpc$1
 echo "cd ~/fpc/\$MYFPC" >> fpc$1
 chmod 755 fpc$1
 cd fpc/git/fpc
 git worktree add ../$1
-cd ../../..
+cd ../$1
+mkdir .claude
+cp $HOME/bin/CLAUDE.fpc.md CLAUDE.md
+cp $HOME/bin/CLAUDE_settings.fpc.json .claude/settings.json
+. $HOME/fpc$1
+echo Successfully created and prepared work tree fpc$1
