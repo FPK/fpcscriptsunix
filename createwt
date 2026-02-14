@@ -5,6 +5,9 @@ echo export MYFPC=git/$1/ > fpc$1
 echo "cd ~/fpc/\$MYFPC" >> fpc$1
 chmod 755 fpc$1
 cd fpc/git/fpc
+git fetch -a
+git checkout main
+git pull
 git worktree add ../$1
 cd ../$1
 mkdir .claude

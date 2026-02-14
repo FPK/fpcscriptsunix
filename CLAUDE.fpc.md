@@ -178,3 +178,6 @@ FPC uses its own declarative `Makefile.fpc` files which are converted to GNU Mak
 ## Notes on coding style
 - do not use inline variable declarations
 - use { ... } styled comments
+
+## Additional notes
+- When testing compilation of a single file, pass the path of all relevant unit files (ppu files).

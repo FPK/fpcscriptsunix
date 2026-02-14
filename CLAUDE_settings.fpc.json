@@ -6,6 +6,7 @@
       "Bash(echo:*)",
       "Bash(done:*)",
       "Bash(fi)",
+      "Bash(timeout:*)",
       "Bash(strip:*)",
       "Bash(cmp:*)",
       "Bash(dd:*)",
@@ -16,7 +17,8 @@
       "Bash(fpc:*)",
       "Bash(ppcx64:*)",
       "Bash(fpc:*)",
-      "Bash(git stash:*)"
+      "Bash(git stash:*)",
+      "WebFetch(domain:gitlab.com)"
     ]
   }
 }
