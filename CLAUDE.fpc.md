@@ -22,7 +22,12 @@ make fullcycle
 
 # Build with optimization
 make cycle "OPT=-O2"
+
+# Regenerate register definitions if the reg*.dat files changed
+cd compiler
+make regdat
 ```
+
 
 The cycle target: (1) compiles RTL with current compiler, (2) compiles compiler with that RTL, (3) recompiles compiler with itself, (4) diffs the last two binaries to verify consistency. If make returns 0, all good.
 
