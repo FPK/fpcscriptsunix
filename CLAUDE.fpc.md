@@ -28,12 +28,12 @@ cd compiler
 make regdat
 ```
 
-
 The cycle target: (1) compiles RTL with current compiler, (2) compiles compiler with that RTL, (3) recompiles compiler with itself, (4) diffs the last two binaries to verify consistency. If make returns 0, all good.
 
 As FPC is very fast, it is often benefical to run make cycle instead of trying to compile single files for testing.
 
-The Makefiles support -j.
+The Makefiles support -j, use make -j$(nproc) which is explicitly allowed by
+the settings file.
 
 ### Building everything (compiler + RTL + packages + utils)
 
