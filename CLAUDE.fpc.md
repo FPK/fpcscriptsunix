@@ -32,7 +32,7 @@ The cycle target: (1) compiles RTL with current compiler, (2) compiles compiler 
 
 As FPC is very fast, it is often benefical to run make cycle instead of trying to compile single files for testing.
 
-The Makefiles support -j, use make -j$(nproc) which is explicitly allowed by
+The Makefiles support -j. Use make -j$(nproc) which is explicitly allowed by
 the settings file.
 
 ### Building everything (compiler + RTL + packages + utils)
@@ -45,9 +45,24 @@ make all
 ### Cross-compilation
 
 ```bash
-# From root or compiler directory
-make all CPU_TARGET=aarch64 OS_TARGET=linux
+# From compiler directory - build a cross-compiler via cycle
+make -j$(nproc) cycle CPU_TARGET=i386
+
+# From root or compiler directory - build everything for a target
+make -j$(nproc) all CPU_TARGET=aarch64 OS_TARGET=linux
 ```
+
+### Testing cross-compiled programs
+
+After building a cross-compiler with `make cycle CPU_TARGET=<target>`, the RTL units are in `rtl/units/<cpu>-<os>/`. To compile and run a test program for a cross-target (e.g. i386):
+
+```bash
+# Use ppcross<suffix> with -Fu pointing to the target RTL
+compiler/ppcross386 -Fu rtl/units/i386-linux/ testfile.pp -o /tmp/testfile
+/tmp/testfile
+```
+
+Do NOT use the native-built compiler (e.g. `ppc386`) from cycle step 3) for ad-hoc testing - it expects a matching native environment. Use the cross-compiler (e.g. `ppcross386`) built in cycle step 1) with an explicit `-Fu` path to the cross-compiled RTL units.
 
 ### Running tests
 
