@@ -201,3 +201,4 @@ FPC uses its own declarative `Makefile.fpc` files which are converted to GNU Mak
 
 ## Additional notes
 - When testing compilation of a single file, pass the path of all relevant unit files (ppu files).
+- When `make cycle` fails with a runtime error in `ppc2` or `ppc3` (rather than a compiler diagnostic), the bug is in the *generated code* from the previous stage. Focus on code generation and parameter-handling logic rather than parsing or semantic analysis.

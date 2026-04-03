@@ -12,15 +12,14 @@
       "Bash(dd:*)",
       "Bash(tee:*)",
       "Bash(grep:*)",
-      "Bash(make:*)",
-      "Bash(make -j$(nproc):*)",
       "Bash(ls:*)",
       "Bash(fpc:*)",
       "Bash(ppcx64:*)",
       "Bash(fpc:*)",
       "Bash(git stash:*)",
       "Bash(git log:*)",
-      "WebFetch(domain:gitlab.com)"
+      "WebFetch(domain:gitlab.com)",
+      "Bash(make *)"
     ]
   }
 }
