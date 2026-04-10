@@ -1,21 +1,24 @@
 #!/usr/bin/env bash
 set -e
-# get lastest fixes
-FIXES=`git branch -a | grep -o 'fixes_[0-9]*_[0-9]*' | sort -r | head -1`
-echo Using $FIXES for fixes
-for branch in main $FIXES
-do
-    git checkout $branch
+
+FIXES=$(git branch -a | grep -o 'fixes_[0-9]*_[0-9]*' | sort -V | tail -1)
+if [ -z "$FIXES" ]; then
+    echo "Error: no fixes branch found" >&2
+    exit 1
+fi
+echo "Using $FIXES for fixes"
+
+for branch in main "$FIXES"; do
+    git checkout "$branch"
     git pull
-    cd fpcsrc
-    git checkout $branch
-    git pull
-    cd ..
-    cd fpcdocs
-    git checkout main
-    git pull
-    cd ..
-    git commit -a -m "* updated $branch"
+    git -C fpcsrc checkout "$branch"
+    git -C fpcsrc pull
+    git -C fpcdocs checkout main
+    git -C fpcdocs pull
+    git add -A
+    git diff --cached --quiet || git commit -m "* updated $branch"
     git push
 done
+
 git checkout main
+git submodule update
