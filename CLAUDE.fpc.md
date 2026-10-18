@@ -52,6 +52,10 @@ make -j$(nproc) cycle CPU_TARGET=i386
 make -j$(nproc) all CPU_TARGET=aarch64 OS_TARGET=linux
 ```
 
+Embedded targets need usually `SUBARCH`, e.g. `make cycle CPU_TARGET=avr OS_TARGET=embedded SUBARCH=avr5`.
+
+If the cross binutils for a target are not installed, the RTL can still be built with `OPT=-s` (generate assembler only, no assembling/linking), e.g. `make -C rtl CPU_TARGET=avr OS_TARGET=embedded SUBARCH=avr5 FPC=<path>/ppcrossavr OPT=-s all`; check the generated `.s` files instead of running code.
+
 ### Testing cross-compiled programs
 
 After building a cross-compiler with `make cycle CPU_TARGET=<target>`, the RTL units are in `rtl/units/<cpu>-<os>/`. To compile and run a test program for a cross-target (e.g. i386):
@@ -88,6 +92,8 @@ make digest TEST_FPC=/path/to/compiler/ppcx64
 # Clean between runs for same platform
 make clean TEST_FPC=/path/to/compiler/ppcx64
 ```
+
+Passing `TEST_DELTEMP=1` when calling `make full` deletes test executables after they are tested, this saves significantly disk space.
 
 ## Repository Structure
 
@@ -202,3 +208,8 @@ FPC uses its own declarative `Makefile.fpc` files which are converted to GNU Mak
 ## Additional notes
 - When testing compilation of a single file, pass the path of all relevant unit files (ppu files).
 - When `make cycle` fails with a runtime error in `ppc2` or `ppc3` (rather than a compiler diagnostic), the bug is in the *generated code* from the previous stage. Focus on code generation and parameter-handling logic rather than parsing or semantic analysis.
+- After changing `compiler/msg/errore.msg`, run `make msg` in `compiler/` (`msgidx.inc`/`msgtxt.inc` are generated and git-ignored) and update the "... is the last used one" comment of the message group.
+- Any change of the ppu file format requires increasing `CurrentPPULongVersion` in `compiler/ppu.pas` and updating `compiler/utils/ppuutils/ppudump.pp`. ppudump can be built by running `make` in `compiler/utils` with - In `tentryfile` (`entfile.pas`), `skipdata` and `readdata` do not advance the position within the current entry; use `getdata`, or rely on `readentry` skipping the unread rest of an entry.
+- Some tests of the test suite fail even with an unmodified tree. To check for regressions, compare the faillist with the one of a pristine build (e.g. extract one with `git archive HEAD | tar -x -C <dir>`) instead of judging the faillist alone.
+- `make all` and the test suite rebuild/use `compiler/ppcx64` and `rtl/units`, so do not run other builds in the same tree in parallel
+- The test suite's whole program optimization support (`%wpoparas`, `%wpopasses`) only recompiles the test program between the passes, not the RTL.
