@@ -41,6 +41,7 @@ the settings file.
 # From repository root - builds compiler via cycle, then RTL, packages, and utils
 make all
 ```
+macOS aka Darwin needs the SDK path passed: use CROSSOPT=-XR/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk
 
 ### Cross-compilation
 
@@ -55,6 +56,7 @@ make -j$(nproc) all CPU_TARGET=aarch64 OS_TARGET=linux
 Embedded targets need usually `SUBARCH`, e.g. `make cycle CPU_TARGET=avr OS_TARGET=embedded SUBARCH=avr5`.
 
 If the cross binutils for a target are not installed, the RTL can still be built with `OPT=-s` (generate assembler only, no assembling/linking), e.g. `make -C rtl CPU_TARGET=avr OS_TARGET=embedded SUBARCH=avr5 FPC=<path>/ppcrossavr OPT=-s all`; check the generated `.s` files instead of running code.
+
 
 ### Testing cross-compiled programs
 
