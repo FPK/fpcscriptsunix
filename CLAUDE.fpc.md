@@ -215,3 +215,4 @@ FPC uses its own declarative `Makefile.fpc` files which are converted to GNU Mak
 - Some tests of the test suite fail even with an unmodified tree. To check for regressions, compare the faillist with the one of a pristine build (e.g. extract one with `git archive HEAD | tar -x -C <dir>`) instead of judging the faillist alone.
 - `make all` and the test suite rebuild/use `compiler/ppcx64` and `rtl/units`, so do not run other builds in the same tree in parallel
 - The test suite's whole program optimization support (`%wpoparas`, `%wpopasses`) only recompiles the test program between the passes, not the RTL.
+- Keep track of the changes in a topic-related mark down file.
